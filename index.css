@@ -19,15 +19,27 @@ iframe {
 	height: 100%;
 }
 
-#nav-button {
+button {
 	position: fixed;
 	z-index: 2;
-	top: 1em;
 	left: 1em;
 	width: 1.6em;
 	height: 1.6em;
+	border: none;
 	background-color: white;
 	cursor: pointer;
+}
+
+button:hover:before {
+	border-color: #F60;
+}
+
+button:active:before {
+	border-color: #D40;
+}
+
+#nav-button {
+	top: 1em;
 }
 
 #nav-button:before {
@@ -45,31 +57,46 @@ iframe {
 	border-color: #F60;
 }
 
-.jump {
-	display: inline-block;
-	margin: 0.8em;
-	padding: 0.5em;
-	border: solid white;
-	border-width: 0 0.4em 0.4em 0;
+#nav-button:active:before {
+	border-color: #D40;
+}
+
+.jump:before {
+	position: absolute;
+	padding: 0.4em;
+	top: 0.25em;
+	border: solid black;
+	border-width: 0 0.3em 0.3em 0;
+	content: '';
 }
 
 .jump.prev {
-	transform: rotate(135deg);
+	top: 4em;
+}
+
+.jump.prev:before {
+	left: 0.5em;
 	-webkit-transform: rotate(135deg);
-		-ms-transform: rotate(135deg);
+	    -ms-transform: rotate(135deg);
+	        transform: rotate(135deg);
 }
 
 .jump.next {
-	transform: rotate(-45deg);
+	top: 7em;
+}
+
+.jump.next:before {
+	left: 0;
 	-webkit-transform: rotate(-45deg);
-		-ms-transform: rotate(-45deg);
+	    -ms-transform: rotate(-45deg);
+	        transform: rotate(-45deg);
 }
 
 #nav-list {
 	position: fixed;
 	display: none;
-	padding-top: 3.2em;
 	z-index: 1;
+	padding-top: 0.5em;
 	overflow: auto;
 	width: 22em;
 	height: 100%;
@@ -78,7 +105,7 @@ iframe {
 }
 
 span {
-	margin-left: 0.6em;
+	margin-left: 3.2em;
 	color: black;
 	font-weight: bold;
 }
