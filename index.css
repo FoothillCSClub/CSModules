@@ -77,22 +77,22 @@ iframe {
 	opacity: 0.9;
 }
 
-a {
-	display: inline-block;
-	margin: 0.1em 0;
-	padding: 0.2em;
-	border: 0.2em solid white;
-	width: 1em;
-	color: white;
-	background-color: black;
-	text-align: center;
-	text-decoration: none;
+span {
+	margin-left: 0.6em;
+	color: black;
 	font-weight: bold;
 }
 
-a:first-child, br + a {
-	margin-left: 0.6em;
-	width: auto;
+a {
+	display: inline-block;
+	padding: 0.2em;
+	border: 0.2em solid white;
+	width: 1em;
+	background-color: black;
+	color: white;
+	text-align: center;
+	text-decoration: none;
+	font-weight: bold;
 }
 
 a:hover, a:active {
