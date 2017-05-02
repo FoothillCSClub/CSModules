@@ -20,29 +20,29 @@ iframe {
 }
 
 #nav-button {
-    position: fixed;
+	position: fixed;
 	z-index: 2;
-    top: 1em;
-    left: 1em;
-    width: 1.6em;
-    height: 1.6em;
-    background-color: white;
-    cursor: pointer;
+	top: 1em;
+	left: 1em;
+	width: 1.6em;
+	height: 1.6em;
+	background-color: white;
+	cursor: pointer;
 }
 
 #nav-button:before {
-    position: absolute;
-    top: 0.3em;
-    left: 0.2em;
-    width: 1.2em;
-    height: 0.2em;
-    border-top: 0.6em double black;
-    border-bottom: 0.2em solid black;
-    content: '';
+	position: absolute;
+	top: 0.3em;
+	left: 0.2em;
+	width: 1.2em;
+	height: 0.2em;
+	border-top: 0.6em double black;
+	border-bottom: 0.2em solid black;
+	content: '';
 }
 
 #nav-button:hover:before {
-    border-color: #F60;
+	border-color: #F60;
 }
 
 .jump {
@@ -68,7 +68,7 @@ iframe {
 #nav-list {
 	position: fixed;
 	display: none;
-    padding-top: 3.2em;
+	padding-top: 3.2em;
 	z-index: 1;
 	overflow: auto;
 	width: 22em;
