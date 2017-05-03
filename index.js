@@ -1,4 +1,4 @@
-var currCourse, currChapter, currSection;
+var position;
 
 window.onreadystatechange = initList();
 
@@ -102,12 +102,12 @@ function toggleList() {
 
 function jumpPrev() {
 	// TODO: Jump to previous chapter
-	setFrame(currCourse, currChapter, currSection - 1);
+	setFrame(position[0], position[1], position[2] - 1);
 }
 
 function jumpNext() {
 	// TODO: Jump to next chapter
-	setFrame(currCourse, currChapter, currSection + 1);
+	setFrame(position[0], position[1], position[2] + 1);
 }
 
 function setCourse(course) {
@@ -118,7 +118,5 @@ function setFrame(course, chapter, section) {
 	var url = 'https://fgamedia.org/faculty/loceff/cs_courses/cs_'.concat(course, '/cs_', course.toUpperCase(), '_', chapter, '_', section, '.html');
 	document.getElementById('frame').src = url;
 	console.log(url);
-	currCourse = course;
-	currChapter = chapter;
-	currSection = section;
+	position = [course, chapter, section];
 }
