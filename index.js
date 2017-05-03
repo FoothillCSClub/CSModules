@@ -1,10 +1,10 @@
-var position;
+var position,
+    navList = document.getElementById('nav-list');
 
 window.onreadystatechange = initList();
 
 function initList() {
 	var list,
-	    navList = document.getElementById('nav-list'),
 	    navCourses = document.getElementById('nav-courses');
 	list = {
 		"1a":{
@@ -42,7 +42,7 @@ function initList() {
 		var courseBtn = document.createElement('button');
 		courseBtn.type = 'button';
 		courseBtn.className = 'section';
-		courseBtn.style.width = '2.2em';
+		courseBtn.style.width = '2.3em';
 		courseBtn.setAttribute('onclick', 'setCourse("'.concat(course, '")'));
 		courseBtn.innerHTML = course.toUpperCase();
 		navCourses.appendChild(courseBtn);
@@ -52,7 +52,6 @@ function initList() {
 		navList.appendChild(navModules);
 		// Generate module list
 		// TEMP: Generate course title
-		navModules.appendChild(document.createElement('br'));
 		var courseSpan = document.createElement('span');
 		courseSpan.style.fontSize = '250%';
 		courseSpan.innerHTML = course.toUpperCase();
@@ -76,6 +75,7 @@ function initList() {
 			}
 			navModules.appendChild(document.createElement('br'));
 		}
+		navModules.appendChild(document.createElement('br'));
 	}
 
 	setFrame('1a', '1a', 1);
@@ -93,7 +93,6 @@ function loadJSON(callback) {
 }
 
 function toggleList() {
-	var navList = document.getElementById('nav-list');
 	if (navList.style.display === 'block')
 		navList.style.display = 'none';
 	else
