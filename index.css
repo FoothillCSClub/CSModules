@@ -1,6 +1,5 @@
 body {
 	margin: 0;
-	padding: 0;
 	font-family: sans-serif;
 }
 
@@ -19,7 +18,15 @@ iframe {
 	height: 100%;
 }
 
-button {
+button.nav:hover:before {
+	border-color: #F60;
+}
+
+button.nav:active:before {
+	border-color: #D40;
+}
+
+.nav {
 	position: fixed;
 	z-index: 2;
 	left: 1em;
@@ -30,19 +37,11 @@ button {
 	cursor: pointer;
 }
 
-button:hover:before {
-	border-color: #F60;
-}
-
-button:active:before {
-	border-color: #D40;
-}
-
-#nav-button {
+.nav.menu {
 	top: 1em;
 }
 
-#nav-button:before {
+.nav.menu:before {
 	position: absolute;
 	top: 0.3em;
 	left: 0.2em;
@@ -53,15 +52,7 @@ button:active:before {
 	content: '';
 }
 
-#nav-button:hover:before {
-	border-color: #F60;
-}
-
-#nav-button:active:before {
-	border-color: #D40;
-}
-
-.jump:before {
+.nav.jump:before {
 	position: absolute;
 	padding: 0.4em;
 	top: 0.25em;
@@ -70,22 +61,22 @@ button:active:before {
 	content: '';
 }
 
-.jump.prev {
+.nav.jump.prev {
 	top: 4em;
 }
 
-.jump.prev:before {
+.nav.jump.prev:before {
 	left: 0.5em;
 	-webkit-transform: rotate(135deg);
 	    -ms-transform: rotate(135deg);
 	        transform: rotate(135deg);
 }
 
-.jump.next {
+.nav.jump.next {
 	top: 7em;
 }
 
-.jump.next:before {
+.nav.jump.next:before {
 	left: 0;
 	-webkit-transform: rotate(-45deg);
 	    -ms-transform: rotate(-45deg);
@@ -101,27 +92,35 @@ button:active:before {
 	width: 22em;
 	height: 100%;
 	background-color: white;
-	opacity: 0.9;
+	opacity: 0.95;
 }
 
 span {
-	margin-left: 3.2em;
+	display: inline-block;
+	margin: 0 0.4em 0 3.2em;
+	width: 2em;
 	color: black;
+	text-align: right;
 	font-weight: bold;
 }
 
-a {
-	display: inline-block;
-	padding: 0.2em;
-	border: 0.2em solid white;
-	width: 1em;
+.section {
+	width: 1.67em;
+	height: 2.15em;
+	border: 0.15em solid white;
+	border-top-width: 0.3em;
+	border-bottom-width: 0.3em;
 	background-color: black;
 	color: white;
-	text-align: center;
-	text-decoration: none;
+	font-size: 1em;
 	font-weight: bold;
+	cursor: pointer;
 }
 
-a:hover, a:active {
+.section:hover {
 	background-color: #F60;
+}
+
+.section:active {
+	background-color: #D40;
 }
