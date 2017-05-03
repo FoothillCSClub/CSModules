@@ -10,11 +10,11 @@
 </head>
 <body>
 	<div id='content'>
-		<iframe id='frame' src='https://fgamedia.org/faculty/loceff/cs_courses/cs_2c/cs_2C_1b_1.html'></iframe>
+		<iframe id='frame'></iframe>
 	</div>
-	<button type='button' class='nav menu' onclick='toggleNav()'></button>
-	<button type='button' class='nav jump prev' title='Non-functional placeholder'></button>
-	<button type='button' class='nav jump next' title='Non-functional placeholder'></button>
+	<button type='button' class='nav menu' onclick='toggleList()'></button>
+	<button type='button' class='nav jump prev' onclick='jumpPrev()'></button>
+	<button type='button' class='nav jump next' onclick='jumpNext()'></button>
 	<div id='nav-list' onmouseleave='this.style.display="none"'>
 		<div id='nav-courses'>
 			<span>CS</span>
