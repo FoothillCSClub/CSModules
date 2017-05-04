@@ -1,4 +1,4 @@
-var position,
+var position = ['1a', '1a', 1],
     list = {
 		"1a":{
 			"c":["1a","1b","2a","2b","3a","3b","4a","4b","5a","5b","6a","6b","7a","7b","8a","8b","9a","9b","10a","10b","10c"],
@@ -42,6 +42,7 @@ function initList() {
 		var courseBtn = document.createElement('button');
 		courseBtn.type = 'button';
 		courseBtn.className = 'section';
+		courseBtn.id = course;
 		courseBtn.innerHTML = course.toUpperCase();
 		navCourses.appendChild(courseBtn);
 		// Generate course title
@@ -56,7 +57,6 @@ function initList() {
 			// Generate chapter title
 			var chapter = list[course].c[c],
 			    chapterSpan = document.createElement('span');
-			chapterSpan.id = course;
 			chapterSpan.innerHTML = chapter.toUpperCase();
 			navList.appendChild(chapterSpan);
 			// Generate section buttons
@@ -64,7 +64,8 @@ function initList() {
 				var sectionBtn = document.createElement('button');
 				sectionBtn.type = 'button';
 				sectionBtn.className = 'section';
-				sectionBtn.setAttribute('onclick', 'setFrame("'.concat(course, '","', chapter, '",', s, ')'));
+				sectionBtn.id = course + chapter + s;
+				sectionBtn.setAttribute('onclick', 'setFrame("' + course + '","' + chapter + '",' + s + ')');
 				sectionBtn.innerHTML = s;
 				navList.appendChild(sectionBtn);
 			}
@@ -91,25 +92,27 @@ function hideList() {
 }
 
 function jumpPrev() {
+	var pos = position;
 	if (position[2] > 1)
-		position[2] -= 1;
+		pos[2] = position[2] - 1;
 	else if (position[1] !== '1a') {
 		var idx = list[position[0]].c.indexOf(position[1]);
-		position[1] = list[position[0]].c[idx - 1];
-		position[2] = list[position[0]].s[idx - 1];
+		pos[1] = list[position[0]].c[idx - 1];
+		pos[2] = list[position[0]].s[idx - 1];
 	}
-	setFrame(position[0], position[1], position[2]);
+	setFrame(pos[0], pos[1], pos[2]);
 }
 
 function jumpNext() {
-	var idx = list[position[0]].c.indexOf(position[1]);
+	var pos = position,
+	    idx = list[position[0]].c.indexOf(position[1]);
 	if (position[2] < list[position[0]].s[idx])
-		position[2] += 1;
+		pos[2] = position[2] + 1;
 	else if (idx < list[position[0]].c.length - 1) {
-		position[1] = list[position[0]].c[idx + 1];
-		position[2] = 1;
+		pos[1] = list[position[0]].c[idx + 1];
+		pos[2] = 1;
 	}
-	setFrame(position[0], position[1], position[2]);
+	setFrame(pos[0], pos[1], pos[2]);
 }
 
 function setCourse(course) {
@@ -117,9 +120,13 @@ function setCourse(course) {
 }
 
 function setFrame(course, chapter, section) {
-	var url = 'https://fgamedia.org/faculty/loceff/cs_courses/cs_'.concat(course, '/cs_', course.toUpperCase(), '_', chapter, '_', section, '.html');
+	var url = 'https://fgamedia.org/faculty/loceff/cs_courses/cs_' + course + '/cs_' + course.toUpperCase() + '_' + chapter + '_' + section + '.html';
 	document.getElementById('frame').src = url;
 	console.log(url);
 	document.getElementById('chapter').innerHTML = chapter.toUpperCase();
+	document.getElementById(position[0]).classList.remove('selected');
+	document.getElementById(position[0] + position[1] + position[2]).classList.remove('selected');
+	document.getElementById(course).classList.add('selected');
+	document.getElementById(course + chapter + section).classList.add('selected');
 	position = [course, chapter, section];
 }

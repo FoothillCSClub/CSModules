@@ -33,6 +33,7 @@ iframe {
 	width: 1.6em;
 	height: 1.6em;
 	border: none;
+	border-radius: 0.2em;
 	background-color: white;
 	font-size: 1em;
 	cursor: pointer;
@@ -99,6 +100,7 @@ span {
 	top: 10.2em;
 	left: 1em;
 	min-width: 1.6em;
+	border-radius: 0.2em;
 	background-color: white;
 	text-align: center;
 	transition: left 0.3s;
@@ -135,7 +137,6 @@ span {
 	position: fixed;
 	z-index: 1;
 	overflow: auto;
-	top: 0;
 	left: -23em;
 	width: 22em;
 	height: 100%;
@@ -174,4 +175,8 @@ span {
 
 .section:active {
 	background-color: #D40;
+}
+
+.selected {
+	background-color: #F60;
 }
