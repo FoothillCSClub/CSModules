@@ -18,11 +18,11 @@ iframe {
 	height: 100%;
 }
 
-button.nav:hover:before {
+#nav-menu + label:hover:before, button.nav:hover:before {
 	border-color: #F60;
 }
 
-button.nav:active:before {
+#nav-menu + label:active:before, button.nav:active:before {
 	border-color: #D40;
 }
 
@@ -34,14 +34,19 @@ button.nav:active:before {
 	height: 1.6em;
 	border: none;
 	background-color: white;
+	font-size: 1em;
 	cursor: pointer;
 }
 
-.nav.menu {
+#nav-menu {
+	display: none;
+}
+
+#nav-menu + label {
 	top: 1em;
 }
 
-.nav.menu:before {
+#nav-menu + label:before {
 	position: absolute;
 	top: 0.3em;
 	left: 0.2em;
@@ -83,25 +88,53 @@ button.nav:active:before {
 	        transform: rotate(-45deg);
 }
 
-#nav-list {
+#nav-courses {
 	position: fixed;
-	display: none;
-	z-index: 1;
-	padding-top: 0.5em;
-	overflow: auto;
-	width: 22em;
-	height: 100%;
-	background-color: white;
-	opacity: 0.95;
+	left: -10em;
+	z-index: 2;
+	top: 10em;
+	transition: left 0.4s;
+}
+
+#nav-menu:checked ~ #nav-courses {
+	left: 0.7em;
+	transition: left 0.5s;
 }
 
 span {
 	display: inline-block;
+	color: black;
+	font-weight: bold;
+}
+
+#nav-courses > span {
+	margin-bottom: 0.2em;
+	width: 2.3em;
+	text-align: center;
+}
+
+#nav-list {
+	position: fixed;
+	z-index: 1;
+	overflow: auto;
+	left: -23em;
+	width: 22em;
+	height: 100%;
+	background-color: white;
+    box-shadow: 0 0 1em;
+	opacity: 0.95;
+	transition: left 0.3s;
+}
+
+#nav-menu:checked ~ #nav-list {
+	left: 0;
+	transition: left 0.3s;
+}
+
+#nav-list > span {
 	margin: 0 0.4em 0 3.2em;
 	width: 2em;
-	color: black;
 	text-align: right;
-	font-weight: bold;
 }
 
 .section {

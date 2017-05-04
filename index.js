@@ -1,12 +1,5 @@
 var position,
-    navList = document.getElementById('nav-list');
-
-window.onreadystatechange = initList();
-
-function initList() {
-	var list,
-	    navCourses = document.getElementById('nav-courses');
-	list = {
+    list = {
 		"1a":{
 			"c":["1a","1b","2a","2b","3a","3b","4a","4b","5a","5b","6a","6b","7a","7b","8a","8b","9a","9b","10a","10b","10c"],
 			"s":[5,2,7,7,4,5,5,6,6,5,5,6,8,5,6,6,2,3,7,4,8]
@@ -33,37 +26,40 @@ function initList() {
 		}
 	};
 
+window.onreadystatechange = initList();
+
+function initList() {
+	var navCourses = document.getElementById('nav-courses'),
+	    navList = document.getElementById('nav-list');
+
 	// loadJSON(function(response) {
 	// 	list = JSON.parse(response);
 	// });
 
 	for (var course in list) {
 		// Generate course button
+		navCourses.appendChild(document.createElement('br'));
 		var courseBtn = document.createElement('button');
 		courseBtn.type = 'button';
 		courseBtn.className = 'section';
 		courseBtn.style.width = '2.3em';
-		courseBtn.setAttribute('onclick', 'setCourse("'.concat(course, '")'));
 		courseBtn.innerHTML = course.toUpperCase();
 		navCourses.appendChild(courseBtn);
-		// Generate course module list container
-		var navModules = document.createElement('div');
-		navModules.id = course;
-		navList.appendChild(navModules);
-		// Generate module list
-		// TEMP: Generate course title
+		// Generate course title
+		navList.appendChild(document.createElement('br'));
 		var courseSpan = document.createElement('span');
 		courseSpan.style.fontSize = '250%';
 		courseSpan.innerHTML = course.toUpperCase();
-		navModules.appendChild(courseSpan);
-		navModules.appendChild(document.createElement('br'));
-		navModules.appendChild(document.createElement('br'));
+		navList.appendChild(courseSpan);
+		navList.appendChild(document.createElement('br'));
+		navList.appendChild(document.createElement('br'));
 		for (var c = 0; c < list[course].c.length; c++) {
 			// Generate chapter title
 			var chapter = list[course].c[c],
 			    chapterSpan = document.createElement('span');
+			chapterSpan.id = course;
 			chapterSpan.innerHTML = chapter.toUpperCase();
-			navModules.appendChild(chapterSpan);
+			navList.appendChild(chapterSpan);
 			// Generate section buttons
 			for (var s = 1; s <= list[course].s[c]; s++) {
 				var sectionBtn = document.createElement('button');
@@ -71,11 +67,10 @@ function initList() {
 				sectionBtn.className = 'section';
 				sectionBtn.setAttribute('onclick', 'setFrame("'.concat(course, '","', chapter, '",', s, ')'));
 				sectionBtn.innerHTML = s;
-				navModules.appendChild(sectionBtn);
+				navList.appendChild(sectionBtn);
 			}
-			navModules.appendChild(document.createElement('br'));
+			navList.appendChild(document.createElement('br'));
 		}
-		navModules.appendChild(document.createElement('br'));
 	}
 
 	setFrame('1a', '1a', 1);
@@ -92,11 +87,8 @@ function loadJSON(callback) {
 	xObj.send(null);
 }
 
-function toggleList() {
-	if (navList.style.display === 'block')
-		navList.style.display = 'none';
-	else
-		navList.style.display = 'block';
+function hideList() {
+	document.getElementById('nav-menu').checked = false;
 }
 
 function jumpPrev() {
