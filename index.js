@@ -92,7 +92,7 @@ function hideList() {
 }
 
 function jumpPrev() {
-	var pos = position;
+	var pos = position.slice();
 	if (position[2] > 1)
 		pos[2] = position[2] - 1;
 	else if (position[1] !== '1a') {
@@ -104,7 +104,7 @@ function jumpPrev() {
 }
 
 function jumpNext() {
-	var pos = position,
+	var pos = position.slice(),
 	    idx = list[position[0]].c.indexOf(position[1]);
 	if (position[2] < list[position[0]].s[idx])
 		pos[2] = position[2] + 1;
