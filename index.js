@@ -120,5 +120,6 @@ function setFrame(course, chapter, section) {
 	var url = 'https://fgamedia.org/faculty/loceff/cs_courses/cs_'.concat(course, '/cs_', course.toUpperCase(), '_', chapter, '_', section, '.html');
 	document.getElementById('frame').src = url;
 	console.log(url);
+	document.getElementById('chapter').innerHTML = chapter.toUpperCase();
 	position = [course, chapter, section];
 }

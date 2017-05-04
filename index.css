@@ -88,23 +88,38 @@ iframe {
 	        transform: rotate(-45deg);
 }
 
+span {
+	display: inline-block;
+	color: black;
+	font-weight: bold;
+}
+
+#chapter {
+	position: fixed;
+	top: 10.2em;
+	left: 1em;
+	min-width: 1.6em;
+	background-color: white;
+	text-align: center;
+	transition: left 0.3s;
+}
+
+#nav-menu:checked ~ #chapter {
+	left: -10em;
+	transition: left 0.3s;
+}
+
 #nav-courses {
 	position: fixed;
-	left: -10em;
 	z-index: 2;
-	top: 10em;
-	transition: left 0.4s;
+	top: 10.2em;
+	left: -10em;
+	transition: left 0.3s;
 }
 
 #nav-menu:checked ~ #nav-courses {
 	left: 0.7em;
 	transition: left 0.5s;
-}
-
-span {
-	display: inline-block;
-	color: black;
-	font-weight: bold;
 }
 
 #nav-courses > span {
@@ -120,12 +135,12 @@ span {
 	position: fixed;
 	z-index: 1;
 	overflow: auto;
+	top: 0;
 	left: -23em;
 	width: 22em;
 	height: 100%;
 	background-color: white;
 	box-shadow: 0 0 1em;
-	opacity: 0.95;
 	transition: left 0.3s;
 }
 
