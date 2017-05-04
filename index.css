@@ -109,8 +109,11 @@ span {
 
 #nav-courses > span {
 	margin-bottom: 0.2em;
-	width: 2.3em;
 	text-align: center;
+}
+
+#nav-courses > * {
+	width: 2.3em;
 }
 
 #nav-list {
@@ -121,7 +124,7 @@ span {
 	width: 22em;
 	height: 100%;
 	background-color: white;
-    box-shadow: 0 0 1em;
+	box-shadow: 0 0 1em;
 	opacity: 0.95;
 	transition: left 0.3s;
 }

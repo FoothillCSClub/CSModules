@@ -42,7 +42,6 @@ function initList() {
 		var courseBtn = document.createElement('button');
 		courseBtn.type = 'button';
 		courseBtn.className = 'section';
-		courseBtn.style.width = '2.3em';
 		courseBtn.innerHTML = course.toUpperCase();
 		navCourses.appendChild(courseBtn);
 		// Generate course title
@@ -92,13 +91,25 @@ function hideList() {
 }
 
 function jumpPrev() {
-	// TODO: Jump to previous chapter
-	setFrame(position[0], position[1], position[2] - 1);
+	if (position[2] > 1)
+		position[2] -= 1;
+	else if (position[1] !== '1a') {
+		var idx = list[position[0]].c.indexOf(position[1]);
+		position[1] = list[position[0]].c[idx - 1];
+		position[2] = list[position[0]].s[idx - 1];
+	}
+	setFrame(position[0], position[1], position[2]);
 }
 
 function jumpNext() {
-	// TODO: Jump to next chapter
-	setFrame(position[0], position[1], position[2] + 1);
+	var idx = list[position[0]].c.indexOf(position[1]);
+	if (position[2] < list[position[0]].s[idx])
+		position[2] += 1;
+	else if (idx < list[position[0]].c.length - 1) {
+		position[1] = list[position[0]].c[idx + 1];
+		position[2] = 1;
+	}
+	setFrame(position[0], position[1], position[2]);
 }
 
 function setCourse(course) {
