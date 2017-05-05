@@ -1,4 +1,4 @@
-var position = document.cookie && document.cookie.match(/position=(\w+,\w+,\d+)/)[1].split(',') || ['1a', '1a', 1],
+var position = location.hash && location.hash.slice(1).split('.') || document.cookie && document.cookie.slice(9).split('.') || ['1a', '1a', 1],
     list = {
 		"1a":{
 			"c":["1a","1b","2a","2b","3a","3b","4a","4b","5a","5b","6a","6b","7a","7b","8a","8b","9a","9b","10a","10b","10c"],
@@ -100,6 +100,13 @@ function jumpNext() {
 	setFrame(p[0], p[1], p[2]);
 }
 
+document.addEventListener('keydown', function(e) {
+    if (e.keyCode === 37) // Left arrow
+        jumpPrev();
+    else if (e.keyCode === 39) // Right arrow
+        jumpNext();
+}, false);
+
 function setCourse(course) {
 	// TODO
 }
@@ -108,12 +115,15 @@ function setFrame(course, chapter, section) {
 	var url = 'https://fgamedia.org/faculty/loceff/cs_courses/cs_' + course + '/cs_' + course.toUpperCase() + '_' + chapter + '_' + section + '.html';
 	document.getElementById('frame').src = url;
 	console.log(url);
+
 	document.getElementById('chapter').innerHTML = chapter.toUpperCase();
 	document.getElementById(position[0]).classList.remove('selected');
 	document.getElementById(position.join('')).classList.remove('selected');
 	document.getElementById(course).classList.add('selected');
 	document.getElementById(course + chapter + section).classList.add('selected');
 	document.title = 'CS ' + (course + ' ' + chapter).toUpperCase() + '.' + section;
+
 	position = [course, chapter, section];
-	document.cookie = 'position=' + position.join(',');
+	history.replaceState(undefined, undefined, '#' + position.join('.'));
+	document.cookie = 'position=' + position.join('.');
 }
