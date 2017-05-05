@@ -85,7 +85,7 @@ function jumpPrev() {
 		var idx = list[position[0]].c.indexOf(position[1]);
 		p[1] = list[position[0]].c[idx - 1];
 		p[2] = list[position[0]].s[idx - 1];
-	}
+	} else return;
 	setFrame(p[0], p[1], p[2]);
 }
 
@@ -97,17 +97,18 @@ function jumpNext() {
 	else if (idx < list[position[0]].c.length - 1) {
 		p[1] = list[position[0]].c[idx + 1];
 		p[2] = 1;
-	}
+	} else return;
 	setFrame(p[0], p[1], p[2]);
 }
 
-function jumpChapter(d) {
+function jumpChapter(n) {
 	var p = position.slice(),
 	    idx = list[position[0]].c.indexOf(position[1]);
-	if (d < 0 && idx > 0)
+	if (n < 0 && idx > 0)
 		p[1] = list[position[0]].c[--idx];
-	else if (d > 0 && idx < list[position[0]].c.length - 1)
+	else if (n > 0 && idx < list[position[0]].c.length - 1)
 		p[1] = list[position[0]].c[++idx];
+	else return;
 	if (p[2] > list[position[0]].s[idx])
 		p[2] = list[position[0]].s[idx];
 	setFrame(p[0], p[1], p[2]);

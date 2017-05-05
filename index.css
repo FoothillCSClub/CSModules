@@ -18,11 +18,15 @@ iframe {
 	height: 100%;
 }
 
-#nav-menu + label:hover:before, button.nav:hover:before {
+#nav-menu + label:hover:before,
+#nav-menu + label:hover:after,
+button.nav:hover:before {
 	border-color: #F60;
 }
 
-#nav-menu + label:active:before, button.nav:active:before {
+#nav-menu + label:active:before,
+#nav-menu + label:active:after,
+button.nav:active:before {
 	border-color: #D40;
 }
 
@@ -47,15 +51,42 @@ iframe {
 	top: 1em;
 }
 
-#nav-menu + label:before {
+#nav-menu + label:before,
+#nav-menu + label:after {
 	position: absolute;
 	top: 0.3em;
 	left: 0.2em;
 	width: 1.2em;
 	height: 0.2em;
-	border-top: 0.6em double black;
-	border-bottom: 0.2em solid black;
+	border-top: 0.2em solid black;
 	content: '';
+	transition: all 0.3s;
+}
+
+#nav-menu + label:after {
+	top: 0.7em;
+	border-bottom: 0.2em solid black;
+}
+
+#nav-menu:checked + label:before,
+#nav-menu:checked + label:after {
+	left: 0.1em;
+	transition: all 0.3s;
+}
+
+#nav-menu:checked + label:before {
+	top: 0.67em;
+	-webkit-transform: rotate(45deg);
+	    -ms-transform: rotate(45deg);
+	        transform: rotate(45deg);
+}
+
+#nav-menu:checked + label:after {
+	top: 0.52em;
+	border-top: transparent;
+	-webkit-transform: rotate(-45deg);
+	    -ms-transform: rotate(-45deg);
+	        transform: rotate(-45deg);
 }
 
 .nav.jump:before {
