@@ -110,9 +110,10 @@ function setFrame(course, chapter, section) {
 	console.log(url);
 	document.getElementById('chapter').innerHTML = chapter.toUpperCase();
 	document.getElementById(position[0]).classList.remove('selected');
-	document.getElementById(position[0] + position[1] + position[2]).classList.remove('selected');
+	document.getElementById(position.join('')).classList.remove('selected');
 	document.getElementById(course).classList.add('selected');
 	document.getElementById(course + chapter + section).classList.add('selected');
+	document.title = 'CS ' + (course + ' ' + chapter).toUpperCase() + '.' + section;
 	position = [course, chapter, section];
 	document.cookie = 'position=' + position.join(',');
 }
