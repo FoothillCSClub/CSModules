@@ -1,4 +1,4 @@
-var position = ['1a', '1a', 1],
+var position = document.cookie && document.cookie.match(/position=(\w+,\w+,\d+)/)[1].split(',') || ['1a', '1a', 1],
     list = {
 		"1a":{
 			"c":["1a","1b","2a","2b","3a","3b","4a","4b","5a","5b","6a","6b","7a","7b","8a","8b","9a","9b","10a","10b","10c"],
@@ -31,10 +31,6 @@ window.onreadystatechange = initList();
 function initList() {
 	var navCourses = document.getElementById('nav-courses'),
 	    navList = document.getElementById('nav-list');
-
-	// loadJSON(function(response) {
-	// 	list = JSON.parse(response);
-	// });
 
 	for (var course in list) {
 		// Generate course button
@@ -73,18 +69,7 @@ function initList() {
 		}
 	}
 
-	setFrame('1a', '1a', 1);
-}
-
-function loadJSON(callback) {
-	var xObj = new XMLHttpRequest();
-	xObj.overrideMimeType('application/json');
-	xObj.open('GET', 'modules.json', true);
-	xObj.onreadystatechange = function() {
-		if (xObj.readyState == 4 && xObj.status == '200')
-			callback(xObj.responseText);
-	};
-	xObj.send(null);
+	setFrame(position[0], position[1], parseInt(position[2]));
 }
 
 function hideList() {
@@ -92,27 +77,27 @@ function hideList() {
 }
 
 function jumpPrev() {
-	var pos = position.slice();
+	var p = position.slice();
 	if (position[2] > 1)
-		pos[2] = position[2] - 1;
+		p[2] -= 1;
 	else if (position[1] !== '1a') {
 		var idx = list[position[0]].c.indexOf(position[1]);
-		pos[1] = list[position[0]].c[idx - 1];
-		pos[2] = list[position[0]].s[idx - 1];
+		p[1] = list[position[0]].c[idx - 1];
+		p[2] = list[position[0]].s[idx - 1];
 	}
-	setFrame(pos[0], pos[1], pos[2]);
+	setFrame(p[0], p[1], p[2]);
 }
 
 function jumpNext() {
-	var pos = position.slice(),
+	var p = position.slice(),
 	    idx = list[position[0]].c.indexOf(position[1]);
 	if (position[2] < list[position[0]].s[idx])
-		pos[2] = position[2] + 1;
+		p[2] += 1;
 	else if (idx < list[position[0]].c.length - 1) {
-		pos[1] = list[position[0]].c[idx + 1];
-		pos[2] = 1;
+		p[1] = list[position[0]].c[idx + 1];
+		p[2] = 1;
 	}
-	setFrame(pos[0], pos[1], pos[2]);
+	setFrame(p[0], p[1], p[2]);
 }
 
 function setCourse(course) {
@@ -129,4 +114,5 @@ function setFrame(course, chapter, section) {
 	document.getElementById(course).classList.add('selected');
 	document.getElementById(course + chapter + section).classList.add('selected');
 	position = [course, chapter, section];
+	document.cookie = 'position=' + position.join(',');
 }
