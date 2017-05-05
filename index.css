@@ -105,6 +105,7 @@ span {
 	background-color: white;
 	text-align: center;
 	transition: left 0.3s;
+	pointer-events: none;
 }
 
 #nav-menu:checked ~ #chapter {
@@ -178,6 +179,10 @@ span {
 	background-color: #D40;
 }
 
-.selected {
+button.selected {
 	background-color: #F60;
+}
+
+span.selected {
+	color: #F60;
 }

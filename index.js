@@ -53,6 +53,7 @@ function initList() {
 			// Generate chapter title
 			var chapter = list[course].c[c],
 			    chapterSpan = document.createElement('span');
+			chapterSpan.id = course + chapter;
 			chapterSpan.innerHTML = chapter.toUpperCase();
 			navList.appendChild(chapterSpan);
 			// Generate section buttons
@@ -79,7 +80,7 @@ function hideList() {
 function jumpPrev() {
 	var p = position.slice();
 	if (position[2] > 1)
-		p[2] -= 1;
+		p[2]--;
 	else if (position[1] !== '1a') {
 		var idx = list[position[0]].c.indexOf(position[1]);
 		p[1] = list[position[0]].c[idx - 1];
@@ -92,7 +93,7 @@ function jumpNext() {
 	var p = position.slice(),
 	    idx = list[position[0]].c.indexOf(position[1]);
 	if (position[2] < list[position[0]].s[idx])
-		p[2] += 1;
+		p[2]++;
 	else if (idx < list[position[0]].c.length - 1) {
 		p[1] = list[position[0]].c[idx + 1];
 		p[2] = 1;
@@ -100,11 +101,32 @@ function jumpNext() {
 	setFrame(p[0], p[1], p[2]);
 }
 
+function jumpChapter(d) {
+	var p = position.slice(),
+	    idx = list[position[0]].c.indexOf(position[1]);
+	if (d < 0 && idx > 0)
+		p[1] = list[position[0]].c[--idx];
+	else if (d > 0 && idx < list[position[0]].c.length - 1)
+		p[1] = list[position[0]].c[++idx];
+	if (p[2] > list[position[0]].s[idx])
+		p[2] = list[position[0]].s[idx];
+	setFrame(p[0], p[1], p[2]);
+}
+
 document.addEventListener('keydown', function(e) {
-    if (e.keyCode === 37) // Left arrow
-        jumpPrev();
-    else if (e.keyCode === 39) // Right arrow
-        jumpNext();
+	switch (e.keyCode) {
+		case 37: // Left arrow
+			jumpPrev();
+			break;
+		case 38: // Up arrow
+			jumpChapter(-1);
+			break;
+		case 39: // Right arrow
+			jumpNext();
+			break;
+		case 40: // Down arrow
+			jumpChapter(1);
+	}
 }, false);
 
 function setCourse(course) {
@@ -118,8 +140,10 @@ function setFrame(course, chapter, section) {
 
 	document.getElementById('chapter').innerHTML = chapter.toUpperCase();
 	document.getElementById(position[0]).classList.remove('selected');
+	document.getElementById(position[0] + position[1]).classList.remove('selected');
 	document.getElementById(position.join('')).classList.remove('selected');
 	document.getElementById(course).classList.add('selected');
+	document.getElementById(course + chapter).classList.add('selected');
 	document.getElementById(course + chapter + section).classList.add('selected');
 	document.title = 'CS ' + (course + ' ' + chapter).toUpperCase() + '.' + section;
 
