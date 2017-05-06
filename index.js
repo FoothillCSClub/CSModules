@@ -1,4 +1,4 @@
-var position = location.hash && location.hash.slice(1).split('.') || document.cookie && document.cookie.slice(9).split('.') || ['1a', '1a', 1],
+var position = location.hash && location.hash.slice(1).split('.') || ['1a', '1a', 1],
     list = {
 		"1a":{
 			"c":["1a","1b","2a","2b","3a","3b","4a","4b","5a","5b","6a","6b","7a","7b","8a","8b","9a","9b","10a","10b","10c"],
@@ -39,8 +39,12 @@ function initList() {
 		courseBtn.type = 'button';
 		courseBtn.className = 'section';
 		courseBtn.id = course;
+		courseBtn.setAttribute('onclick', 'setCourse("' + course + '")');
 		courseBtn.innerHTML = course.toUpperCase();
 		navCourses.appendChild(courseBtn);
+		var courseAnchor = document.createElement('div');
+		courseAnchor.id = course + '-anchor';
+		navList.appendChild(courseAnchor);
 		// Generate course title
 		navList.appendChild(document.createElement('br'));
 		var courseSpan = document.createElement('span');
@@ -70,6 +74,8 @@ function initList() {
 		}
 	}
 
+	document.cookie = 'expires=Thu, 01 Jan 1970 00:00:00 UTC';
+	setCourse(position[0]);
 	setFrame(position[0], position[1], parseInt(position[2]));
 }
 
@@ -131,7 +137,23 @@ document.addEventListener('keydown', function(e) {
 }, false);
 
 function setCourse(course) {
-	// TODO
+	var navList = document.getElementById('nav-list'),
+	    scrollPosition = navList.scrollTop,
+	    distance = document.getElementById(course + '-anchor').offsetTop - scrollPosition,
+	    counter = 0;
+
+	function smoothStep(n) {
+		return n * n * (3 - 2 * n);
+	}
+
+	var sI = setInterval(function() {
+		navList.scrollTop = scrollPosition + distance * smoothStep(counter++ / 30);
+		if (counter > 30)
+			clearInterval(sI);
+	}, 10);
+
+	if (position[0] !== course)
+		setFrame(course, '1a', 1);
 }
 
 function setFrame(course, chapter, section) {
@@ -150,5 +172,4 @@ function setFrame(course, chapter, section) {
 
 	position = [course, chapter, section];
 	history.replaceState(undefined, undefined, '#' + position.join('.'));
-	document.cookie = 'position=' + position.join('.');
 }
