@@ -74,7 +74,7 @@ function initList() {
 		}
 	}
 
-	document.cookie = 'expires=Thu, 01 Jan 1970 00:00:00 UTC';
+	document.cookie = 'position=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
 	setCourse(position[0]);
 	setFrame(position[0], position[1], parseInt(position[2]));
 }
