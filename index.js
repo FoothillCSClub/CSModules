@@ -74,9 +74,12 @@ function initList() {
 		}
 	}
 
+	if (/Android|iP(hone|od)/.test(navigator.userAgent))
+		document.body.style.fontSize = '200%';
+
 	document.cookie = 'position=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-	setCourse(position[0]);
 	setFrame(position[0], position[1], parseInt(position[2]));
+	setCourse(position[0]);
 }
 
 function hideList() {
