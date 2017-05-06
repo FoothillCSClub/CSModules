@@ -147,6 +147,7 @@ span {
 #nav-courses {
 	position: fixed;
 	z-index: 2;
+	overflow: auto;
 	top: 10.2em;
 	left: -10em;
 	transition: left 0.3s;

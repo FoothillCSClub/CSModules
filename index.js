@@ -75,16 +75,16 @@ function initList() {
 	}
 
 	if (/Android|iP(hone|od)/.test(navigator.userAgent)) {
-		if (window.orientation == 0 || 180)
+		if (window.innerHeight > window.innerWidth)
 			document.body.style.fontSize = '200%';
+		else
+			document.body.style.fontSize = '120%';
+		
 		window.addEventListener('orientationchange', function() {
-			switch(window.orientation) {
-				case 0 || 180:
-					document.body.style.fontSize = '200%';
-					break;
-				default:
-					document.body.style.fontSize = '100%';
-			}
+			if (window.innerHeight > window.innerWidth)
+				document.body.style.fontSize = '200%';
+			else
+				document.body.style.fontSize = '120%';
 		});
 	}
 
