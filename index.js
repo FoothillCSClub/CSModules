@@ -74,8 +74,19 @@ function initList() {
 		}
 	}
 
-	if (/Android|iP(hone|od)/.test(navigator.userAgent))
-		document.body.style.fontSize = '200%';
+	if (/Android|iP(hone|od)/.test(navigator.userAgent)) {
+		if (window.orientation == 0 || 180)
+			document.body.style.fontSize = '200%';
+		window.addEventListener('orientationchange', function() {
+			switch(window.orientation) {
+				case 0 || 180:
+					document.body.style.fontSize = '200%';
+					break;
+				default:
+					document.body.style.fontSize = '100%';
+			}
+		});
+	}
 
 	document.cookie = 'position=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
 	setFrame(position[0], position[1], parseInt(position[2]));
