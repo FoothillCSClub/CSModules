@@ -14,7 +14,7 @@ function initList() {
 			console.log('inside', list);
 		}
 	};
-	xObj.open('GET', 'modules.json', true);
+	xObj.open('GET', 'modules.json', false);
 	xObj.send();
 	console.log('outside', list);
 
