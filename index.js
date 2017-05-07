@@ -1,4 +1,4 @@
-var position = location.hash && location.hash.slice(1).split('.') || ['1a', '1a', 1],
+var position = location.hash && location.hash.slice(1).toLowerCase().split('.') || ['1a', '1a', 1],
     list;
 
 window.onreadystatechange = initList();
@@ -7,7 +7,7 @@ function initList() {
 	var xhr = new XMLHttpRequest();
 	xhr.open('GET', 'modules.json');
 	xhr.onreadystatechange = function() {
-		if (xhr.readyState == 4 && xhr.status == 200) {
+		if (xhr.readyState === 4 && xhr.status === 200) {
 			list = JSON.parse(xhr.responseText);
 			genList();
 			setCourse(position[0]);
@@ -17,6 +17,7 @@ function initList() {
 	xhr.send();
 
 	if (/Android|iP(hone|od)/.test(navigator.userAgent)) {
+		// Move navigation to bottom of screen on smartphones in portrait view
 		function togglePortrait() {
 			var nav = document.getElementsByClassName('nav');
 			for (var i = 0; i < nav.length; i++)
@@ -55,6 +56,7 @@ function genList() {
 		courseBtn.setAttribute('onclick', 'setCourse("' + course + '")');
 		courseBtn.innerHTML = course.toUpperCase();
 		navCourses.appendChild(courseBtn);
+		// Generate course anchor
 		var courseAnchor = document.createElement('div');
 		courseAnchor.id = course + '-anchor';
 		navList.appendChild(courseAnchor);
@@ -155,6 +157,7 @@ function setCourse(course) {
 		return n * n * (3 - 2 * n);
 	}
 
+	// Smooth scroll
 	var sI = setInterval(function() {
 		navList.scrollTop = scrollPosition + distance * smoothStep(counter++ / 30);
 		if (counter > 30)
@@ -170,6 +173,7 @@ function setFrame(course, chapter, section) {
 	document.getElementById('frame').src = url;
 	console.log(url);
 
+	// Highlight corresponding module list buttons
 	document.getElementById('chapter').innerHTML = chapter.toUpperCase();
 	document.getElementById(position[0]).classList.remove('selected');
 	document.getElementById(position[0] + position[1]).classList.remove('selected');
@@ -180,5 +184,6 @@ function setFrame(course, chapter, section) {
 	document.title = 'CS ' + (course + ' ' + chapter).toUpperCase() + '.' + section;
 
 	position = [course, chapter, section];
+	// Replace history entry created by iframe with location hash
 	history.replaceState(undefined, undefined, '#' + position.join('.'));
 }
