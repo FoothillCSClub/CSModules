@@ -4,6 +4,18 @@ var position = location.hash && location.hash.slice(1).split('.') || ['1a', '1a'
 window.onreadystatechange = initList();
 
 function initList() {
+	var xhr = new XMLHttpRequest();
+	xhr.open('GET', 'modules.json');
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == 4 && xhr.status == 200) {
+			list = JSON.parse(xhr.responseText);
+			genList();
+			setCourse(position[0]);
+			setFrame(position[0], position[1], parseInt(position[2]));
+		}
+	};
+	xhr.send();
+
 	if (/Android|iP(hone|od)/.test(navigator.userAgent)) {
 		function togglePortrait() {
 			var nav = document.getElementsByClassName('nav');
@@ -25,18 +37,6 @@ function initList() {
 				document.body.style.fontSize = '125%';
 		});
 	}
-
-	var xhr = new XMLHttpRequest();
-	xhr.open('GET', 'modules.json');
-	xhr.onreadystatechange = function() {
-		if (xhr.readyState == 4 && xhr.status == 200) {
-			list = JSON.parse(xhr.responseText);
-			genList();
-			setCourse(position[0]);
-			setFrame(position[0], position[1], parseInt(position[2]));
-		}
-	};
-	xhr.send();
 
 	document.cookie = 'position=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
 }
