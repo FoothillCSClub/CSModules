@@ -75,10 +75,13 @@ function initList() {
 	}
 
 	if (/Android|iP(hone|od)/.test(navigator.userAgent)) {
-		if (window.innerHeight > window.innerWidth)
+		if (window.innerHeight > window.innerWidth) {
 			document.body.style.fontSize = '200%';
-		else
+			document.getElementsByClassName('nav')[0].style.backgroundColor = 'cyan';
+		} else {
 			document.body.style.fontSize = '130%';
+			document.getElementsByClassName('nav')[0].style.backgroundColor = 'pink';
+		}
 	}
 
 	document.cookie = 'position=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
@@ -89,10 +92,10 @@ function initList() {
 window.addEventListener('orientationchange', function() {
 	if (window.innerHeight > window.innerWidth) {
 		document.body.style.fontSize = '200%';
-		document.getElementsByClassName('nav').style.backgroundColor = 'cyan';
+		document.getElementsByClassName('nav')[0].style.backgroundColor = 'cyan';
 	} else {
 		document.body.style.fontSize = '130%';
-		document.getElementsByClassName('nav').style.backgroundColor = 'pink';
+		document.getElementsByClassName('nav')[0].style.backgroundColor = 'pink';
 	}
 });
 
