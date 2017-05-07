@@ -74,9 +74,31 @@ function initList() {
 		}
 	}
 
+	if (/Android|iP(hone|od)/.test(navigator.userAgent)) {
+		function togglePortrait() {
+			var nav = document.getElementsByClassName('nav');
+			for (var i = 0; i < nav.length; i++)
+				nav[i].classList.toggle('portrait');
+		}
+
+		if (screen.height > screen.width) {
+			document.body.style.fontSize = '200%';
+			togglePortrait();
+		} else
+			document.body.style.fontSize = '125%';
+
+		window.addEventListener('orientationchange', function() {
+			togglePortrait();
+			if (screen.height > screen.width)
+				document.body.style.fontSize = '200%';
+			else
+				document.body.style.fontSize = '125%';
+		});
+	}
+
 	document.cookie = 'position=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-	setCourse(position[0]);
 	setFrame(position[0], position[1], parseInt(position[2]));
+	setCourse(position[0]);
 }
 
 function hideList() {

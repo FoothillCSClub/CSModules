@@ -40,7 +40,6 @@ button.nav:active:before {
 	border-radius: 0.2em;
 	background-color: white;
 	font-size: 1em;
-	cursor: pointer;
 }
 
 #nav-menu {
@@ -49,6 +48,12 @@ button.nav:active:before {
 
 #nav-menu + label {
 	top: 1em;
+	cursor: pointer;
+}
+
+#nav-menu.portrait + label {
+	top: auto;
+	bottom: 1em;
 }
 
 #nav-menu + label:before,
@@ -96,10 +101,16 @@ button.nav:active:before {
 	border: solid black;
 	border-width: 0 0.3em 0.3em 0;
 	content: '';
+	cursor: pointer;
 }
 
 .nav.jump.prev {
 	top: 4em;
+}
+
+.nav.jump.prev.portrait {
+	top: auto;
+	bottom: 7em;
 }
 
 .nav.jump.prev:before {
@@ -111,6 +122,11 @@ button.nav:active:before {
 
 .nav.jump.next {
 	top: 7em;
+}
+
+.nav.jump.next.portrait {
+	top: auto;
+	bottom: 4em;
 }
 
 .nav.jump.next:before {
@@ -127,16 +143,17 @@ span {
 }
 
 #chapter {
-	position: fixed;
-	z-index: 2;
 	top: 10.2em;
-	left: 1em;
 	min-width: 1.6em;
-	border-radius: 0.2em;
-	background-color: white;
+	height: auto;
 	text-align: center;
 	transition: left 0.3s;
 	pointer-events: none;
+}
+
+#chapter.portrait {
+	top: auto;
+	bottom: 10em;
 }
 
 #nav-menu:checked ~ #chapter {
@@ -146,10 +163,15 @@ span {
 
 #nav-courses {
 	position: fixed;
-	z-index: 2;
 	top: 10.2em;
 	left: -10em;
+	height: auto;
 	transition: left 0.3s;
+}
+
+#nav-courses.portrait {
+	top: auto;
+	bottom: 9.5em;
 }
 
 #nav-menu:checked ~ #nav-courses {
