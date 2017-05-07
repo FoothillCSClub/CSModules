@@ -4,7 +4,7 @@ An index for [Michael Loceff](https://www.foothill.edu/cs/directory.php?s=1&rec_
 
 Bookmark/link friendly. Mobile friendly.
 
-https://foothillcsclub.github.io/CSModules/
+__https://foothillcsclub.github.io/CSModules/__
 
 ## Usage
 
