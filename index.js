@@ -1,34 +1,48 @@
 var position = location.hash && location.hash.slice(1).split('.') || ['1a', '1a', 1],
-    list = {
-		"1a":{
-			"c":["1a","1b","2a","2b","3a","3b","4a","4b","5a","5b","6a","6b","7a","7b","8a","8b","9a","9b","10a","10b","10c"],
-			"s":[5,2,7,7,4,5,5,6,6,5,5,6,8,5,6,6,2,3,7,4,8]
-		},
-		"1b":{
-			"c":["1a","1b","2a","2b","3a","3b","4a","4b","5a","5b","6a","6b","7a","7b","8a","8b","9a","9b","10a","10b","10c"],
-			"s":[7,7,6,5,1,5,5,4,8,8,6,5,3,4,5,8,5,6,4,6,6]
-		},
-		"1c":{
-			"c":["1a","1b","2a","2b","3a","3b","4a","4b","5a","5b","6a","6b","7a","7b","8a","8b","9a","9b","10a","10b","11a","11b"],
-			"s":[8,9,4,7,5,5,4,5,6,6,3,4,4,2,4,3,4,5,6,3,5,2]
-		},
-		"2a":{
-			"c":["1a","1b","2a","2b","3a","3b","3c","4a","4b","4c","5a","5b","6a","6b","6c","7a","7b","8a","8b","9a","9b","9c","10a","10b"],
-			"s":[5,7,7,5,8,6,5,6,4,6,6,5,5,5,6,8,5,5,5,2,3,3,4,4]
-		},
-		"2b":{
-			"c":["1a","1b","2a","2b","3a","3b","4a","4b","4c","5a","5b","6a","6b","7a","7b","8a","8b","9a","9b","10a","10b","10c"],
-			"s":[8,7,7,7,8,7,5,3,8,6,5,4,4,5,6,5,4,6,4,5,1,4]
-		},
-		"2c":{
-			"c":["1a","1b","2a","2b","3a","3b","4a","4b","5a","5b","6a","6b","7a","7b","8a","8b","9a","9b","10a","10b","11a","11b"],
-			"s":[9,9,4,7,5,5,4,5,6,6,3,4,4,2,4,4,6,4,6,3,5,2]
-		}
-	};
+    list;
 
 window.onreadystatechange = initList();
 
 function initList() {
+	var xhr = new XMLHttpRequest();
+	xhr.open('GET', 'modules.json');
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === 4 && xhr.status === 200) {
+			list = JSON.parse(xhr.responseText);
+			genList();
+			setCourse(position[0]);
+			setFrame(position[0], position[1], parseInt(position[2]));
+		}
+	};
+	xhr.send();
+
+	if (/Android|iP(hone|od)/.test(navigator.userAgent)) {
+		// Move navigation to bottom of screen on smartphones in portrait view
+		function togglePortrait() {
+			var nav = document.getElementsByClassName('nav');
+			for (var i = 0; i < nav.length; i++)
+				nav[i].classList.toggle('portrait');
+		}
+
+		if (screen.height > screen.width) {
+			document.body.style.fontSize = '200%';
+			togglePortrait();
+		} else
+			document.body.style.fontSize = '125%';
+
+		window.addEventListener('orientationchange', function() {
+			togglePortrait();
+			if (screen.height > screen.width)
+				document.body.style.fontSize = '200%';
+			else
+				document.body.style.fontSize = '125%';
+		});
+	}
+
+	document.cookie = 'position=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+}
+
+function genList() {
 	var navCourses = document.getElementById('nav-courses'),
 	    navList = document.getElementById('nav-list');
 
@@ -42,6 +56,7 @@ function initList() {
 		courseBtn.setAttribute('onclick', 'setCourse("' + course + '")');
 		courseBtn.innerHTML = course.toUpperCase();
 		navCourses.appendChild(courseBtn);
+		// Generate course anchor
 		var courseAnchor = document.createElement('div');
 		courseAnchor.id = course + '-anchor';
 		navList.appendChild(courseAnchor);
@@ -73,32 +88,6 @@ function initList() {
 			navList.appendChild(document.createElement('br'));
 		}
 	}
-
-	if (/Android|iP(hone|od)/.test(navigator.userAgent)) {
-		function togglePortrait() {
-			var nav = document.getElementsByClassName('nav');
-			for (var i = 0; i < nav.length; i++)
-				nav[i].classList.toggle('portrait');
-		}
-
-		if (screen.height > screen.width) {
-			document.body.style.fontSize = '200%';
-			togglePortrait();
-		} else
-			document.body.style.fontSize = '125%';
-
-		window.addEventListener('orientationchange', function() {
-			togglePortrait();
-			if (screen.height > screen.width)
-				document.body.style.fontSize = '200%';
-			else
-				document.body.style.fontSize = '125%';
-		});
-	}
-
-	document.cookie = 'position=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-	setFrame(position[0], position[1], parseInt(position[2]));
-	setCourse(position[0]);
 }
 
 function hideList() {
@@ -168,6 +157,7 @@ function setCourse(course) {
 		return n * n * (3 - 2 * n);
 	}
 
+	// Smooth scroll
 	var sI = setInterval(function() {
 		navList.scrollTop = scrollPosition + distance * smoothStep(counter++ / 30);
 		if (counter > 30)
@@ -183,6 +173,7 @@ function setFrame(course, chapter, section) {
 	document.getElementById('frame').src = url;
 	console.log(url);
 
+	// Highlight corresponding module list buttons
 	document.getElementById('chapter').innerHTML = chapter.toUpperCase();
 	document.getElementById(position[0]).classList.remove('selected');
 	document.getElementById(position[0] + position[1]).classList.remove('selected');
@@ -193,5 +184,6 @@ function setFrame(course, chapter, section) {
 	document.title = 'CS ' + (course + ' ' + chapter).toUpperCase() + '.' + section;
 
 	position = [course, chapter, section];
+	// Replace history entry created by iframe with location hash
 	history.replaceState(undefined, undefined, '#' + position.join('.'));
 }
