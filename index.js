@@ -82,22 +82,22 @@ function initList() {
 			document.body.style.fontSize = '130%';
 			document.getElementsByClassName('nav')[0].style.backgroundColor = 'pink';
 		}
+
+		window.addEventListener('orientationchange', function() {
+			if (window.innerHeight > window.innerWidth) {
+				document.body.style.fontSize = '130%';
+				document.getElementsByClassName('nav')[0].style.backgroundColor = 'pink';
+			} else {
+				document.body.style.fontSize = '200%';
+				document.getElementsByClassName('nav')[0].style.backgroundColor = 'cyan';
+			}
+		});
 	}
 
 	document.cookie = 'position=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
 	setFrame(position[0], position[1], parseInt(position[2]));
 	setCourse(position[0]);
 }
-
-window.addEventListener('orientationchange', function() {
-	if (window.innerHeight > window.innerWidth) {
-		document.body.style.fontSize = '200%';
-		document.getElementsByClassName('nav')[0].style.backgroundColor = 'cyan';
-	} else {
-		document.body.style.fontSize = '130%';
-		document.getElementsByClassName('nav')[0].style.backgroundColor = 'pink';
-	}
-});
 
 function hideList() {
 	document.getElementById('nav-menu').checked = false;
