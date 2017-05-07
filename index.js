@@ -1,36 +1,21 @@
 var position = location.hash && location.hash.slice(1).split('.') || ['1a', '1a', 1],
-    list = {
-		"1a":{
-			"c":["1a","1b","2a","2b","3a","3b","4a","4b","5a","5b","6a","6b","7a","7b","8a","8b","9a","9b","10a","10b","10c"],
-			"s":[5,2,7,7,4,5,5,6,6,5,5,6,8,5,6,6,2,3,7,4,8]
-		},
-		"1b":{
-			"c":["1a","1b","2a","2b","3a","3b","4a","4b","5a","5b","6a","6b","7a","7b","8a","8b","9a","9b","10a","10b","10c"],
-			"s":[7,7,6,5,1,5,5,4,8,8,6,5,3,4,5,8,5,6,4,6,6]
-		},
-		"1c":{
-			"c":["1a","1b","2a","2b","3a","3b","4a","4b","5a","5b","6a","6b","7a","7b","8a","8b","9a","9b","10a","10b","11a","11b"],
-			"s":[8,9,4,7,5,5,4,5,6,6,3,4,4,2,4,3,4,5,6,3,5,2]
-		},
-		"2a":{
-			"c":["1a","1b","2a","2b","3a","3b","3c","4a","4b","4c","5a","5b","6a","6b","6c","7a","7b","8a","8b","9a","9b","9c","10a","10b"],
-			"s":[5,7,7,5,8,6,5,6,4,6,6,5,5,5,6,8,5,5,5,2,3,3,4,4]
-		},
-		"2b":{
-			"c":["1a","1b","2a","2b","3a","3b","4a","4b","4c","5a","5b","6a","6b","7a","7b","8a","8b","9a","9b","10a","10b","10c"],
-			"s":[8,7,7,7,8,7,5,3,8,6,5,4,4,5,6,5,4,6,4,5,1,4]
-		},
-		"2c":{
-			"c":["1a","1b","2a","2b","3a","3b","4a","4b","5a","5b","6a","6b","7a","7b","8a","8b","9a","9b","10a","10b","11a","11b"],
-			"s":[9,9,4,7,5,5,4,5,6,6,3,4,4,2,4,4,6,4,6,3,5,2]
-		}
-	};
+    list;
 
 window.onreadystatechange = initList();
 
 function initList() {
 	var navCourses = document.getElementById('nav-courses'),
 	    navList = document.getElementById('nav-list');
+
+	var xObj = new XMLHttpRequest();
+	xObj.onreadystatechange = function() {
+		if (xObj.readyState == 4 && xObj.status == 200)
+			list = JSON.parse(xObj.responseText);
+			console.log('inside', list);
+	};
+	xObj.open('GET', 'modules.json', true);
+	xObj.send(null);
+	console.log('outside', list);
 
 	for (var course in list) {
 		// Generate course button
