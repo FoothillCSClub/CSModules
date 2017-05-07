@@ -78,7 +78,7 @@ function initList() {
 		if (window.innerHeight > window.innerWidth)
 			document.body.style.fontSize = '200%';
 		else
-			document.body.style.fontSize = '150%';
+			document.body.style.fontSize = '130%';
 	}
 
 	document.cookie = 'position=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
@@ -87,10 +87,13 @@ function initList() {
 }
 
 window.addEventListener('orientationchange', function() {
-	if (window.innerHeight > window.innerWidth)
+	if (window.innerHeight > window.innerWidth) {
 		document.body.style.fontSize = '200%';
-	else
-		document.body.style.fontSize = '150%';
+		document.getElementsByClassName('nav').style.backgroundColor = 'cyan';
+	} else {
+		document.body.style.fontSize = '130%';
+		document.getElementsByClassName('nav').style.backgroundColor = 'pink';
+	}
 });
 
 function hideList() {
