@@ -75,22 +75,20 @@ function initList() {
 	}
 
 	if (/Android|iP(hone|od)/.test(navigator.userAgent)) {
-		if (window.innerHeight > window.innerWidth) {
+		var nav = document.getElementsByClassName('nav');
+		for (var i = 0; i < nav.length; i++)
+			nav[i].classList.add('mobile');
+
+		if (screen.height > screen.width)
 			document.body.style.fontSize = '200%';
-			document.getElementsByClassName('nav')[0].style.backgroundColor = 'cyan';
-		} else {
-			document.body.style.fontSize = '130%';
-			document.getElementsByClassName('nav')[0].style.backgroundColor = 'pink';
-		}
+		else
+			document.body.style.fontSize = '125%';
 
 		window.addEventListener('orientationchange', function() {
-			if (window.innerHeight > window.innerWidth) {
-				document.body.style.fontSize = '130%';
-				document.getElementsByClassName('nav')[0].style.backgroundColor = 'pink';
-			} else {
+			if (screen.height > screen.width)
 				document.body.style.fontSize = '200%';
-				document.getElementsByClassName('nav')[0].style.backgroundColor = 'cyan';
-			}
+			else
+				document.body.style.fontSize = '125%';
 		});
 	}
 
