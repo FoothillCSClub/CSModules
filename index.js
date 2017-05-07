@@ -4,20 +4,47 @@ var position = location.hash && location.hash.slice(1).split('.') || ['1a', '1a'
 window.onreadystatechange = initList();
 
 function initList() {
-	var navCourses = document.getElementById('nav-courses'),
-	    navList = document.getElementById('nav-list');
+	if (/Android|iP(hone|od)/.test(navigator.userAgent)) {
+		function togglePortrait() {
+			var nav = document.getElementsByClassName('nav');
+			for (var i = 0; i < nav.length; i++)
+				nav[i].classList.toggle('portrait');
+		}
 
-	var xObj = new XMLHttpRequest();
-	xObj.onreadystatechange = function() {
-		if (xObj.readyState == 4 && xObj.status == 200) {
-			list = JSON.parse(xObj.responseText);
-			console.log('inside', list);
+		if (screen.height > screen.width) {
+			document.body.style.fontSize = '200%';
+			togglePortrait();
+		} else
+			document.body.style.fontSize = '125%';
+
+		window.addEventListener('orientationchange', function() {
+			togglePortrait();
+			if (screen.height > screen.width)
+				document.body.style.fontSize = '200%';
+			else
+				document.body.style.fontSize = '125%';
+		});
+	}
+
+	var xhr = new XMLHttpRequest();
+	xhr.open('GET', 'modules.json');
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == 4 && xhr.status == 200) {
+			list = JSON.parse(xhr.responseText);
+			genList();
+			setCourse(position[0]);
+			setFrame(position[0], position[1], parseInt(position[2]));
 		}
 	};
-	xObj.open('GET', 'modules.json', false);
-	xObj.send();
-	console.log('outside', list);
+	xhr.send();
 
+	document.cookie = 'position=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+}
+
+function genList() {
+	var navCourses = document.getElementById('nav-courses'),
+	    navList = document.getElementById('nav-list');
+	
 	for (var course in list) {
 		// Generate course button
 		navCourses.appendChild(document.createElement('br'));
@@ -59,32 +86,6 @@ function initList() {
 			navList.appendChild(document.createElement('br'));
 		}
 	}
-
-	if (/Android|iP(hone|od)/.test(navigator.userAgent)) {
-		function togglePortrait() {
-			var nav = document.getElementsByClassName('nav');
-			for (var i = 0; i < nav.length; i++)
-				nav[i].classList.toggle('portrait');
-		}
-
-		if (screen.height > screen.width) {
-			document.body.style.fontSize = '200%';
-			togglePortrait();
-		} else
-			document.body.style.fontSize = '125%';
-
-		window.addEventListener('orientationchange', function() {
-			togglePortrait();
-			if (screen.height > screen.width)
-				document.body.style.fontSize = '200%';
-			else
-				document.body.style.fontSize = '125%';
-		});
-	}
-
-	document.cookie = 'position=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-	setFrame(position[0], position[1], parseInt(position[2]));
-	setCourse(position[0]);
 }
 
 function hideList() {
