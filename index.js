@@ -9,12 +9,13 @@ function initList() {
 
 	var xObj = new XMLHttpRequest();
 	xObj.onreadystatechange = function() {
-		if (xObj.readyState == 4 && xObj.status == 200)
+		if (xObj.readyState == 4 && xObj.status == 200) {
 			list = JSON.parse(xObj.responseText);
 			console.log('inside', list);
+		}
 	};
 	xObj.open('GET', 'modules.json', true);
-	xObj.send(null);
+	xObj.send();
 	console.log('outside', list);
 
 	for (var course in list) {
