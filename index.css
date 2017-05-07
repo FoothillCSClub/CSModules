@@ -51,7 +51,7 @@ button.nav:active:before {
 	cursor: pointer;
 }
 
-#nav-menu.mobile + label {
+#nav-menu.portrait + label {
 	top: auto;
 	bottom: 1em;
 }
@@ -108,7 +108,7 @@ button.nav:active:before {
 	top: 4em;
 }
 
-.nav.jump.prev.mobile {
+.nav.jump.prev.portrait {
 	top: auto;
 	bottom: 7em;
 }
@@ -124,7 +124,7 @@ button.nav:active:before {
 	top: 7em;
 }
 
-.nav.jump.next.mobile {
+.nav.jump.next.portrait {
 	top: auto;
 	bottom: 4em;
 }
@@ -151,7 +151,7 @@ span {
 	pointer-events: none;
 }
 
-#chapter.mobile {
+#chapter.portrait {
 	top: auto;
 	bottom: 10em;
 }
@@ -169,7 +169,7 @@ span {
 	transition: left 0.3s;
 }
 
-#nav-courses.mobile {
+#nav-courses.portrait {
 	top: auto;
 	bottom: 9.5em;
 }

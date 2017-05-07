@@ -75,16 +75,20 @@ function initList() {
 	}
 
 	if (/Android|iP(hone|od)/.test(navigator.userAgent)) {
-		var nav = document.getElementsByClassName('nav');
-		for (var i = 0; i < nav.length; i++)
-			nav[i].classList.add('mobile');
+		function togglePortrait() {
+			var nav = document.getElementsByClassName('nav');
+			for (var i = 0; i < nav.length; i++)
+				nav[i].classList.toggle('portrait');
+		}
 
-		if (screen.height > screen.width)
+		if (screen.height > screen.width) {
 			document.body.style.fontSize = '200%';
-		else
+			togglePortrait();
+		} else
 			document.body.style.fontSize = '125%';
 
 		window.addEventListener('orientationchange', function() {
+			togglePortrait();
 			if (screen.height > screen.width)
 				document.body.style.fontSize = '200%';
 			else
