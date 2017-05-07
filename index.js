@@ -1,4 +1,4 @@
-var position = location.hash && location.hash.slice(1).split('.') || ['1a', '1a', 1],
+var position = location.hash && location.hash.slice(1).toLowerCase().split('.') || ['1a', '1a', 1],
     list;
 
 window.onreadystatechange = initList();

@@ -12,4 +12,4 @@ Click stuff.
 
 ###### Keyboard
 
-__Arrow keys__ — navigate modules
+__Arrow keys__ — change module
