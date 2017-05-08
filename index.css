@@ -145,10 +145,10 @@ span {
 #chapter {
 	top: 10.2em;
 	min-width: 1.6em;
+	width: auto;
 	height: auto;
-	text-align: center;
+	text-align: left;
 	transition: left 0.3s;
-	pointer-events: none;
 }
 
 #chapter.portrait {
@@ -219,6 +219,7 @@ span {
 	border-bottom-width: 0.3em;
 	background-color: black;
 	color: white;
+	font-family: inherit;
 	font-size: 1em;
 	font-weight: bold;
 	cursor: pointer;

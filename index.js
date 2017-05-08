@@ -90,10 +90,6 @@ function genList() {
 	}
 }
 
-function hideList() {
-	document.getElementById('nav-menu').checked = false;
-}
-
 function jumpPrev() {
 	var p = position.slice();
 	if (position[2] > 1)
@@ -146,6 +142,15 @@ document.addEventListener('keydown', function(e) {
 			jumpChapter(1);
 	}
 }, false);
+
+function showSection() {
+	document.getElementById('chapter').innerHTML = position[1].toUpperCase() + '.' + position[2];
+}
+
+function hideList() {
+	document.getElementById('nav-menu').checked = false;
+	document.getElementById('chapter').innerHTML = position[1].toUpperCase();
+}
 
 function setCourse(course) {
 	var navList = document.getElementById('nav-list'),
