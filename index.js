@@ -143,12 +143,8 @@ document.addEventListener('keydown', function(e) {
 	}
 }, false);
 
-function toggleSection() {
-	var chapter = document.getElementById('chapter');
-	if (/\./.test(chapter.innerHTML))
-		chapter.innerHTML = position[1];
-	else
-		chapter.innerHTML = position[1].toUpperCase() + '.' + position[2];
+function showSection() {
+	document.getElementById('chapter').innerHTML = position[1].toUpperCase() + '.' + position[2];
 }
 
 function hideList() {
