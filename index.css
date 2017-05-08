@@ -145,6 +145,7 @@ span {
 #chapter {
 	top: 10.2em;
 	min-width: 1.6em;
+	width: auto;
 	height: auto;
 	text-align: center;
 	transition: left 0.3s;
