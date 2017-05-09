@@ -33,17 +33,17 @@ function initList() {
 		}
 
 		if (screen.height > screen.width) {
-			document.body.style.fontSize = '200%';
+			document.documentElement.style.fontSize = '200%';
 			togglePortrait();
 		} else
-			document.body.style.fontSize = '125%';
+			document.documentElement.style.fontSize = '125%';
 
 		window.addEventListener('orientationchange', function() {
 			togglePortrait();
 			if (screen.height > screen.width)
-				document.body.style.fontSize = '200%';
+				document.documentElement.style.fontSize = '200%';
 			else
-				document.body.style.fontSize = '125%';
+				document.documentElement.style.fontSize = '125%';
 		});
 	}
 }
@@ -99,18 +99,18 @@ function genList() {
 	linkBtn.type = 'button';
 	linkBtn.className = 'section';
 	linkBtn.id = 'link';
-	linkBtn.innerHTML = 'CP';
+	linkBtn.title = 'Copy module link';
 	navCourses.appendChild(linkBtn);
+}
+
+function hideList() {
+	document.getElementById('nav-menu').checked = false;
 }
 
 window.onhashchange = function() {
 	var p = location.hash.slice(1).toLowerCase().split('.');
 	setFrame(p[0], p[1], p[2]);
 	history.replaceState(undefined, undefined, '.');
-}
-
-function hideList() {
-	document.getElementById('nav-menu').checked = false;
 }
 
 function jumpPrev() {
