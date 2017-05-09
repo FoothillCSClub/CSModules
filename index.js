@@ -104,8 +104,8 @@ function genList() {
 }
 
 window.onhashchange = function() {
-	position = location.hash.slice(1).toLowerCase().split('.');
-	setFrame(position[0], position[1], position[2]);
+	var p = location.hash.slice(1).toLowerCase().split('.');
+	setFrame(p[0], p[1], p[2]);
 	history.replaceState(undefined, undefined, '.');
 }
 
