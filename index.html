@@ -6,6 +6,7 @@
 	<meta name='author' content='Joshua Fan'>
 	<title>Foothill CS Modules</title>
 	<link rel='stylesheet' type='text/css' href='index.css'>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.6.1/clipboard.min.js' defer></script>
 	<script src='index.js' defer></script>
 </head>
 <body>
@@ -16,6 +17,9 @@
 	<label for='nav-menu' class='nav'></label>
 	<button type='button' class='nav jump prev' onclick='jumpPrev()'></button>
 	<button type='button' class='nav jump next' onclick='jumpNext()'></button>
+	<button type='button' id='link' class='nav'>
+		<div class='tooltip'></div>
+	</button>
 	<span id='chapter' class='nav'></span>
 	<div id='nav-courses' class='nav'>
 		<span>CS</span>

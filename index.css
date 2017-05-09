@@ -5,10 +5,10 @@ body {
 
 #content {
 	position: fixed;
-	left: 0;
-	right: 0;
 	top: 0;
 	bottom: 0;
+	left: 0;
+	right: 0;
 }
 
 iframe {
@@ -18,28 +18,32 @@ iframe {
 	height: 100%;
 }
 
-#nav-menu + label:hover:before,
-#nav-menu + label:hover:after,
-button.nav:hover:before {
+#nav-menu + label:hover::before,
+#nav-menu + label:hover::after,
+button.nav:hover::before,
+#link:hover::before,
+#link:hover::after {
 	border-color: #F60;
 }
 
-#nav-menu + label:active:before,
-#nav-menu + label:active:after,
-button.nav:active:before {
+#nav-menu + label:active::before,
+#nav-menu + label:active::after,
+button.nav:active::before,
+#link:active::before,
+#link:active::after {
 	border-color: #D40;
 }
 
 .nav {
 	position: fixed;
 	z-index: 2;
-	left: 1em;
-	width: 1.6em;
-	height: 1.6em;
+	left: 1rem;
+	width: 1.6rem;
+	height: 1.6rem;
 	border: none;
-	border-radius: 0.2em;
+	border-radius: 0.2rem;
 	background-color: white;
-	font-size: 1em;
+	cursor: pointer;
 }
 
 #nav-menu {
@@ -47,89 +51,87 @@ button.nav:active:before {
 }
 
 #nav-menu + label {
-	top: 1em;
-	cursor: pointer;
+	top: 1rem;
 }
 
 #nav-menu.portrait + label {
 	top: auto;
-	bottom: 1em;
+	bottom: 1rem;
 }
 
-#nav-menu + label:before,
-#nav-menu + label:after {
+#nav-menu + label::before,
+#nav-menu + label::after {
 	position: absolute;
-	top: 0.3em;
-	left: 0.2em;
-	width: 1.2em;
-	height: 0.18em;
-	border-top: 0.2em solid black;
+	top: 0.3rem;
+	left: 0.2rem;
+	width: 1.2rem;
+	height: 0.18rem;
+	border-top: 0.2rem solid black;
 	content: '';
 	transition: all 0.3s;
 }
 
-#nav-menu + label:after {
-	top: 0.7em;
-	border-bottom: 0.2em solid black;
+#nav-menu + label::after {
+	top: 0.7rem;
+	border-bottom: 0.2rem solid black;
 }
 
-#nav-menu:checked + label:before,
-#nav-menu:checked + label:after {
-	left: 0.1em;
+#nav-menu:checked + label::before,
+#nav-menu:checked + label::after {
+	left: 0.1rem;
 	transition: all 0.3s;
 }
 
-#nav-menu:checked + label:before {
-	top: 0.63em;
+#nav-menu:checked + label::before {
+	top: 0.63rem;
 	-webkit-transform: rotate(45deg);
 	    -ms-transform: rotate(45deg);
 	        transform: rotate(45deg);
 }
 
-#nav-menu:checked + label:after {
-	top: 0.5em;
+#nav-menu:checked + label::after {
+	top: 0.5rem;
 	border-top: transparent;
 	-webkit-transform: rotate(-45deg);
 	    -ms-transform: rotate(-45deg);
 	        transform: rotate(-45deg);
 }
 
-.nav.jump:before {
+.nav.jump::before {
 	position: absolute;
-	padding: 0.4em;
-	top: 0.25em;
+	padding: 0.4rem;
+	top: 0.25rem;
 	border: solid black;
-	border-width: 0 0.3em 0.3em 0;
+	border-width: 0 0.3rem 0.3rem 0;
 	content: '';
-	cursor: pointer;
 }
 
 .nav.jump.prev {
-	top: 4em;
+	top: 4rem;
 }
 
 .nav.jump.prev.portrait {
 	top: auto;
-	bottom: 7em;
+	bottom: 7rem;
 }
 
-.nav.jump.prev:before {
-	left: 0.5em;
+.nav.jump.prev::before {
+	left: 0.5rem;
 	-webkit-transform: rotate(135deg);
 	    -ms-transform: rotate(135deg);
 	        transform: rotate(135deg);
 }
 
 .nav.jump.next {
-	top: 7em;
+	top: 7rem;
 }
 
 .nav.jump.next.portrait {
 	top: auto;
-	bottom: 4em;
+	bottom: 4rem;
 }
 
-.nav.jump.next:before {
+.nav.jump.next::before {
 	left: 0;
 	-webkit-transform: rotate(-45deg);
 	    -ms-transform: rotate(-45deg);
@@ -143,8 +145,8 @@ span {
 }
 
 #chapter {
-	top: 10.2em;
-	min-width: 1.6em;
+	top: 10.2rem;
+	min-width: 1.6rem;
 	width: auto;
 	height: auto;
 	text-align: center;
@@ -154,50 +156,130 @@ span {
 
 #chapter.portrait {
 	top: auto;
-	bottom: 10em;
+	bottom: 10rem;
 }
 
 #nav-menu:checked ~ #chapter {
-	left: -10em;
+	left: -10rem;
 	transition: left 0.3s;
+}
+
+#link {
+	top: 10rem;
+	left: -10rem;
+	transition: left 0.3s;
+}
+
+#link.portrait {
+	top: auto;
+	bottom: 10rem;
+}
+
+#nav-menu:checked ~ #link {
+	left: 1rem;
+	transition: left 0.5s;
+}
+
+#link::before,
+#link::after {
+	position: absolute;
+	top: 0.1rem;
+	left: 0.5rem;
+	width: 0.3rem;
+	height: 0.6rem;
+	border-radius: 1rem;
+	border: 0.2rem solid black;
+	background-color: transparent;
+	content: '';
+	-webkit-transform: rotate(45deg);
+	    -ms-transform: rotate(45deg);
+	        transform: rotate(45deg);
+}
+
+#link::after {
+	top: 0.55rem;
+	left: 0.4rem;
+}
+
+#link:hover > .tooltip {
+	position: absolute;
+	top: 0;
+	left: 2.2rem;
+	width: 9rem;
+	height: 1.6rem;
+	border-radius: 0.2rem;
+	background-color: dimgrey;
+}
+
+#link:hover > .tooltip::before {
+	color: white;
+	font-family: sans-serif;
+	font-size: 1rem;
+	font-weight: bold;
+	line-height: 1.6rem;
+	content: 'Copy module link';
+}
+
+#link:active > .tooltip {
+	width: 4.4rem;
+	background-color: #F60;
+}
+
+#link:active > .tooltip::before {
+	content: 'Copied!';
+}
+
+#link:hover > .tooltip::after {
+	position: absolute;
+	margin-top: -0.4rem;
+	top: 50%;
+	right: 100%;
+	border: 0.4rem solid transparent;
+	border-right-color: dimgrey;
+	content: '';
+}
+
+#link:active > .tooltip::after {
+	border-right-color: #F60;
 }
 
 #nav-courses {
 	position: fixed;
-	top: 10.2em;
-	left: -10em;
+	top: 13rem;
+	left: -10rem;
 	height: auto;
+	cursor: auto;
 	transition: left 0.3s;
 }
 
 #nav-courses.portrait {
 	top: auto;
-	bottom: 9.5em;
+	bottom: 12.7rem;
 }
 
 #nav-menu:checked ~ #nav-courses {
-	left: 0.7em;
+	left: 0.7rem;
 	transition: left 0.5s;
 }
 
 #nav-courses > span {
-	margin-bottom: 0.2em;
+	margin-bottom: 0.2rem;
 	text-align: center;
 }
 
 #nav-courses > * {
-	width: 2.3em;
+	width: 2.3rem;
 }
 
 #nav-list {
 	position: fixed;
 	z-index: 1;
 	overflow: auto;
-	left: -23em;
-	width: 22em;
+	left: -23rem;
+	width: 22rem;
 	height: 100%;
 	background-color: white;
-	box-shadow: 0 0 1em;
+	box-shadow: 0 0 1rem;
 	transition: left 0.3s;
 }
 
@@ -213,15 +295,15 @@ span {
 }
 
 .section {
-	width: 1.67em;
-	height: 2.15em;
-	border: 0.15em solid white;
-	border-top-width: 0.3em;
-	border-bottom-width: 0.3em;
+	width: 1.67rem;
+	height: 2.15rem;
+	border: 0.15rem solid white;
+	border-top-width: 0.3rem;
+	border-bottom-width: 0.3rem;
 	background-color: black;
 	color: white;
 	font-family: inherit;
-	font-size: 1em;
+	font-size: 1rem;
 	font-weight: bold;
 	cursor: pointer;
 }

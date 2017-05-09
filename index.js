@@ -1,4 +1,4 @@
-var position = location.hash && location.hash.slice(1).toLowerCase().split('.') || ['1a', '1a', 1],
+var position = location.hash && location.hash.slice(1).toLowerCase().split('.') || document.cookie && document.cookie.slice(9).split('.') || ['1a', '1a', 1],
     list;
 
 window.onreadystatechange = initList();
@@ -16,6 +16,14 @@ function initList() {
 	};
 	xhr.send();
 
+	history.replaceState(undefined, undefined, '.');
+	
+	var clipboard = new Clipboard('#link', {
+		text: function() {
+			return 'https://foothillcsclub.github.io/CSModules/#' + position.join('.');
+		}
+	});
+
 	if (/Android|iP(hone|od)/.test(navigator.userAgent)) {
 		// Move navigation to bottom of screen on smartphones in portrait view
 		function togglePortrait() {
@@ -25,21 +33,19 @@ function initList() {
 		}
 
 		if (screen.height > screen.width) {
-			document.body.style.fontSize = '200%';
+			document.documentElement.style.fontSize = '200%';
 			togglePortrait();
 		} else
-			document.body.style.fontSize = '125%';
+			document.documentElement.style.fontSize = '125%';
 
 		window.addEventListener('orientationchange', function() {
 			togglePortrait();
 			if (screen.height > screen.width)
-				document.body.style.fontSize = '200%';
+				document.documentElement.style.fontSize = '200%';
 			else
-				document.body.style.fontSize = '125%';
+				document.documentElement.style.fontSize = '125%';
 		});
 	}
-
-	document.cookie = 'position=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
 }
 
 function genList() {
@@ -92,6 +98,12 @@ function genList() {
 
 function hideList() {
 	document.getElementById('nav-menu').checked = false;
+}
+
+window.onhashchange = function() {
+	var p = location.hash.slice(1).toLowerCase().split('.');
+	setFrame(p[0], p[1], p[2]);
+	history.replaceState(undefined, undefined, '.');
 }
 
 function jumpPrev() {
@@ -174,16 +186,15 @@ function setFrame(course, chapter, section) {
 	console.log(url);
 
 	// Highlight corresponding module list buttons
-	document.getElementById('chapter').innerHTML = chapter.toUpperCase();
 	document.getElementById(position[0]).classList.remove('selected');
 	document.getElementById(position[0] + position[1]).classList.remove('selected');
 	document.getElementById(position.join('')).classList.remove('selected');
 	document.getElementById(course).classList.add('selected');
 	document.getElementById(course + chapter).classList.add('selected');
 	document.getElementById(course + chapter + section).classList.add('selected');
+	document.getElementById('chapter').innerHTML = chapter.toUpperCase();
 	document.title = 'CS ' + (course + ' ' + chapter).toUpperCase() + '.' + section;
 
 	position = [course, chapter, section];
-	// Replace history entry created by iframe with location hash
-	history.replaceState(undefined, undefined, '#' + position.join('.'));
+	document.cookie = 'position=' + position.join('.');
 }
