@@ -5,10 +5,10 @@ body {
 
 #content {
 	position: fixed;
-	left: 0;
-	right: 0;
 	top: 0;
 	bottom: 0;
+	left: 0;
+	right: 0;
 }
 
 iframe {
@@ -147,8 +147,9 @@ span {
 	min-width: 1.6em;
 	width: auto;
 	height: auto;
-	text-align: left;
+	text-align: center;
 	transition: left 0.3s;
+	pointer-events: none;
 }
 
 #chapter.portrait {
@@ -186,6 +187,10 @@ span {
 
 #nav-courses > * {
 	width: 2.3em;
+}
+
+#link {
+	margin-top: 1em;
 }
 
 #nav-list {

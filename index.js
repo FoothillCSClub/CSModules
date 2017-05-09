@@ -1,4 +1,4 @@
-var position = location.hash && location.hash.slice(1).toLowerCase().split('.') || ['1a', '1a', 1],
+var position = location.hash && location.hash.slice(1).toLowerCase().split('.') || document.cookie && document.cookie.slice(9).split('.') || ['1a', '1a', 1],
     list;
 
 window.onreadystatechange = initList();
@@ -15,6 +15,12 @@ function initList() {
 		}
 	};
 	xhr.send();
+
+	var clipboard = new Clipboard('#link', {
+		text: function() {
+			return 'https://foothillcsclub.github.io/CSModules/#' + position.join('.');
+		}
+	});
 
 	if (/Android|iP(hone|od)/.test(navigator.userAgent)) {
 		// Move navigation to bottom of screen on smartphones in portrait view
@@ -38,14 +44,12 @@ function initList() {
 				document.body.style.fontSize = '125%';
 		});
 	}
-
-	document.cookie = 'position=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
 }
 
 function genList() {
 	var navCourses = document.getElementById('nav-courses'),
 	    navList = document.getElementById('nav-list');
-	
+
 	for (var course in list) {
 		// Generate course button
 		navCourses.appendChild(document.createElement('br'));
@@ -88,6 +92,17 @@ function genList() {
 			navList.appendChild(document.createElement('br'));
 		}
 	}
+
+	var linkBtn = document.createElement('button');
+	linkBtn.type = 'button';
+	linkBtn.className = 'section';
+	linkBtn.id = 'link';
+	linkBtn.innerHTML = 'CP';
+	navCourses.appendChild(linkBtn);
+}
+
+function hideList() {
+	document.getElementById('nav-menu').checked = false;
 }
 
 function jumpPrev() {
@@ -143,15 +158,6 @@ document.addEventListener('keydown', function(e) {
 	}
 }, false);
 
-function showSection() {
-	document.getElementById('chapter').innerHTML = position[1].toUpperCase() + '.' + position[2];
-}
-
-function hideList() {
-	document.getElementById('nav-menu').checked = false;
-	document.getElementById('chapter').innerHTML = position[1].toUpperCase();
-}
-
 function setCourse(course) {
 	var navList = document.getElementById('nav-list'),
 	    scrollPosition = navList.scrollTop,
@@ -179,16 +185,15 @@ function setFrame(course, chapter, section) {
 	console.log(url);
 
 	// Highlight corresponding module list buttons
-	document.getElementById('chapter').innerHTML = chapter.toUpperCase();
 	document.getElementById(position[0]).classList.remove('selected');
 	document.getElementById(position[0] + position[1]).classList.remove('selected');
 	document.getElementById(position.join('')).classList.remove('selected');
 	document.getElementById(course).classList.add('selected');
 	document.getElementById(course + chapter).classList.add('selected');
 	document.getElementById(course + chapter + section).classList.add('selected');
+	document.getElementById('chapter').innerHTML = chapter.toUpperCase();
 	document.title = 'CS ' + (course + ' ' + chapter).toUpperCase() + '.' + section;
 
 	position = [course, chapter, section];
-	// Replace history entry created by iframe with location hash
-	history.replaceState(undefined, undefined, '#' + position.join('.'));
+	document.cookie = 'position=' + position.join('.');
 }
