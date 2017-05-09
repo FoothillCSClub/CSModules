@@ -42,7 +42,8 @@ button.nav:active::before,
 	height: 1.6rem;
 	border: none;
 	border-radius: 0.2rem;
-	background-color: white;
+	background-color: #DDD;
+	cursor: pointer;
 }
 
 #nav-menu {
@@ -51,7 +52,6 @@ button.nav:active::before,
 
 #nav-menu + label {
 	top: 1rem;
-	cursor: pointer;
 }
 
 #nav-menu.portrait + label {
@@ -104,7 +104,6 @@ button.nav:active::before,
 	border: solid black;
 	border-width: 0 0.3rem 0.3rem 0;
 	content: '';
-	cursor: pointer;
 }
 
 .nav.jump.prev {
@@ -167,9 +166,10 @@ span {
 
 #nav-courses {
 	position: fixed;
-	top: 10.2rem;
+	top: 13rem;
 	left: -10rem;
 	height: auto;
+	cursor: auto;
 	transition: left 0.3s;
 }
 
@@ -193,18 +193,23 @@ span {
 }
 
 #link {
-	position: relative;
-	margin-top: 1rem;
-	background-color: white;
+	top: 10rem;
+	left: -10rem;
+	transition: left 0.3s;
+}
+
+#nav-menu:checked ~ #link {
+	left: 1rem;
+	transition: left 0.5s;
 }
 
 #link::before,
 #link::after {
 	position: absolute;
-	top: 0;
-	left: 0.6rem;
-	width: 0.4rem;
-	height: 0.8rem;
+	top: 0.1rem;
+	left: 0.5rem;
+	width: 0.3rem;
+	height: 0.6rem;
 	border-radius: 0.4rem;
 	border: 0.2rem solid black;
 	background-color: transparent;
@@ -215,8 +220,8 @@ span {
 }
 
 #link::after {
-	top: 0.5rem;
-	left: 0.55rem;
+	top: 0.55rem;
+	left: 0.4rem;
 }
 
 #nav-list {

@@ -94,13 +94,6 @@ function genList() {
 			navList.appendChild(document.createElement('br'));
 		}
 	}
-
-	var linkBtn = document.createElement('button');
-	linkBtn.type = 'button';
-	linkBtn.className = 'section';
-	linkBtn.id = 'link';
-	linkBtn.title = 'Copy module link';
-	navCourses.appendChild(linkBtn);
 }
 
 function hideList() {
