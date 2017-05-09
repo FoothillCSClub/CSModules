@@ -20,7 +20,7 @@ function initList() {
 	
 	var clipboard = new Clipboard('#link', {
 		text: function() {
-			return 'https://foothillcsclub.github.io/CSModules/#' + position.join('.');
+			return document.location + '#' + position.join('.');
 		}
 	});
 
