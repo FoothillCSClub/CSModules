@@ -16,8 +16,8 @@ function initList() {
 	};
 	xhr.send();
 
-	history.replaceState(undefined, 'Foothill CS Modules', window.location.pathname);
-
+	history.replaceState(undefined, undefined, '.');
+	
 	var clipboard = new Clipboard('#link', {
 		text: function() {
 			return 'https://foothillcsclub.github.io/CSModules/#' + position.join('.');
@@ -101,6 +101,12 @@ function genList() {
 	linkBtn.id = 'link';
 	linkBtn.innerHTML = 'CP';
 	navCourses.appendChild(linkBtn);
+}
+
+window.onhashchange = function() {
+	position = location.hash.slice(1).toLowerCase().split('.');
+	setFrame(position[0], position[1], position[2]);
+	history.replaceState(undefined, undefined, '.');
 }
 
 function hideList() {
