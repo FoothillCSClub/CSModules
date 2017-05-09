@@ -177,7 +177,7 @@ span {
 
 #nav-menu:checked ~ #link {
 	left: 1rem;
-	transition: left 0.5s;
+	transition: left 0.4s;
 }
 
 #link::before,
