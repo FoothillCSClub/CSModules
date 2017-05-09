@@ -16,6 +16,8 @@ function initList() {
 	};
 	xhr.send();
 
+	history.replaceState(undefined, 'Foothill CS Modules', window.location.pathname);
+
 	var clipboard = new Clipboard('#link', {
 		text: function() {
 			return 'https://foothillcsclub.github.io/CSModules/#' + position.join('.');
@@ -44,8 +46,6 @@ function initList() {
 				document.body.style.fontSize = '125%';
 		});
 	}
-
-	history.replaceState(undefined, undefined, '.');
 }
 
 function genList() {
