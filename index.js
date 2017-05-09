@@ -44,6 +44,8 @@ function initList() {
 				document.body.style.fontSize = '125%';
 		});
 	}
+
+	history.replaceState(undefined, undefined, '.');
 }
 
 function genList() {
