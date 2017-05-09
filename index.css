@@ -42,7 +42,7 @@ button.nav:active::before,
 	height: 1.6rem;
 	border: none;
 	border-radius: 0.2rem;
-	background-color: #DDD;
+	background-color: white;
 	cursor: pointer;
 }
 
@@ -164,38 +164,15 @@ span {
 	transition: left 0.3s;
 }
 
-#nav-courses {
-	position: fixed;
-	top: 13rem;
-	left: -10rem;
-	height: auto;
-	cursor: auto;
-	transition: left 0.3s;
-}
-
-#nav-courses.portrait {
-	top: auto;
-	bottom: 9.5rem;
-}
-
-#nav-menu:checked ~ #nav-courses {
-	left: 0.7rem;
-	transition: left 0.5s;
-}
-
-#nav-courses > span {
-	margin-bottom: 0.2rem;
-	text-align: center;
-}
-
-#nav-courses > * {
-	width: 2.3rem;
-}
-
 #link {
 	top: 10rem;
 	left: -10rem;
 	transition: left 0.3s;
+}
+
+#link.portrait {
+	top: auto;
+	bottom: 10rem;
 }
 
 #nav-menu:checked ~ #link {
@@ -210,7 +187,7 @@ span {
 	left: 0.5rem;
 	width: 0.3rem;
 	height: 0.6rem;
-	border-radius: 0.4rem;
+	border-radius: 1rem;
 	border: 0.2rem solid black;
 	background-color: transparent;
 	content: '';
@@ -222,6 +199,76 @@ span {
 #link::after {
 	top: 0.55rem;
 	left: 0.4rem;
+}
+
+#link:hover > .tooltip {
+	position: absolute;
+	top: 0;
+	left: 2.2rem;
+	width: 9rem;
+	height: 1.6rem;
+	border-radius: 0.2rem;
+	background-color: dimgrey;
+}
+
+#link:hover > .tooltip::before {
+	color: white;
+	font-family: sans-serif;
+	font-size: 1rem;
+	font-weight: bold;
+	line-height: 1.6rem;
+	content: 'Copy module link';
+}
+
+#link:active > .tooltip {
+	width: 4.4rem;
+	background-color: #F60;
+}
+
+#link:active > .tooltip::before {
+	content: 'Copied!';
+}
+
+#link:hover > .tooltip::after {
+	position: absolute;
+	margin-top: -0.4rem;
+	top: 50%;
+	right: 100%;
+	border: 0.4rem solid transparent;
+	border-right-color: dimgrey;
+	content: '';
+}
+
+#link:active > .tooltip::after {
+	border-right-color: #F60;
+}
+
+#nav-courses {
+	position: fixed;
+	top: 13rem;
+	left: -10rem;
+	height: auto;
+	cursor: auto;
+	transition: left 0.3s;
+}
+
+#nav-courses.portrait {
+	top: auto;
+	bottom: 12.7rem;
+}
+
+#nav-menu:checked ~ #nav-courses {
+	left: 0.7rem;
+	transition: left 0.5s;
+}
+
+#nav-courses > span {
+	margin-bottom: 0.2rem;
+	text-align: center;
+}
+
+#nav-courses > * {
+	width: 2.3rem;
 }
 
 #nav-list {
