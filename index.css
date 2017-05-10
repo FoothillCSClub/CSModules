@@ -323,13 +323,19 @@ span {
 	background-color: silver;
 }
 
-::-webkit-scrollbar-thumb:hover,
+::-webkit-scrollbar-thumb:hover {
+	background-color: darkgray;
+}
+
+::-webkit-scrollbar-thumb:active {
+	background-color: dimgray;
+}
+
 .section:hover,
 button.selected {
 	background-color: #F60;
 }
 
-::-webkit-scrollbar-thumb:active,
 .section:active {
 	background-color: #D40;
 }
