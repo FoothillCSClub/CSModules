@@ -1,9 +1,7 @@
 var position = location.hash && location.hash.slice(1).toLowerCase().split('.') || document.cookie && document.cookie.slice(9).split('.') || ['1a', '1a', 1],
     list;
 
-window.onreadystatechange = initList();
-
-function initList() {
+(function() {
 	var xhr = new XMLHttpRequest();
 	xhr.open('GET', 'modules.json');
 	xhr.onreadystatechange = function() {
@@ -20,6 +18,11 @@ function initList() {
 	
 	var clipboard = new Clipboard('#link', {
 		text: function() {
+			var link = document.getElementById('link');
+			link.classList.add('copied');
+			setTimeout(function() {
+				link.classList.remove('copied');
+			}, 1000);
 			return document.location + '#' + position.join('.');
 		}
 	});
@@ -46,7 +49,7 @@ function initList() {
 				document.documentElement.style.fontSize = '125%';
 		});
 	}
-}
+})();
 
 function genList() {
 	var navCourses = document.getElementById('nav-courses'),
@@ -104,7 +107,7 @@ window.onhashchange = function() {
 	var p = location.hash.slice(1).toLowerCase().split('.');
 	setFrame(p[0], p[1], p[2]);
 	history.replaceState(undefined, undefined, '.');
-}
+};
 
 function jumpPrev() {
 	var p = position.slice();
@@ -181,7 +184,10 @@ function setCourse(course) {
 }
 
 function setFrame(course, chapter, section) {
-	var url = 'https://fgamedia.org/faculty/loceff/cs_courses/cs_' + course + '/cs_' + course.toUpperCase() + '_' + chapter + '_' + section + '.html';
+	if (chapter === '3a' && (/(1|2)b/).test(course) && 1 < section && section < 6)
+		var url = 'https://www.fgamedia.org/faculty/loceff/cs_courses/common/LIFE/cs_1and2B_' + chapter + '_' + section + '.html';
+	else
+		var url = 'https://fgamedia.org/faculty/loceff/cs_courses/cs_' + course + '/cs_' + course.toUpperCase() + '_' + chapter + '_' + section + '.html';
 	document.getElementById('frame').src = url;
 	console.log(url);
 

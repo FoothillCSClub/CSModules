@@ -201,8 +201,9 @@ span {
 	left: 0.4rem;
 }
 
-#link:hover > .tooltip {
+#link > .tooltip {
 	position: absolute;
+	display: none;
 	top: 0;
 	left: 2.2rem;
 	width: 9rem;
@@ -211,7 +212,17 @@ span {
 	background-color: dimgrey;
 }
 
-#link:hover > .tooltip::before {
+#link:hover > .tooltip {
+	display: block;
+}
+
+#link.copied > .tooltip {
+	display: block;
+	width: 4.4rem;
+	background-color: #F60;
+}
+
+#link > .tooltip::before {
 	color: white;
 	font-family: sans-serif;
 	font-size: 1rem;
@@ -220,16 +231,11 @@ span {
 	content: 'Copy module link';
 }
 
-#link:active > .tooltip {
-	width: 4.4rem;
-	background-color: #F60;
-}
-
-#link:active > .tooltip::before {
+#link.copied > .tooltip::before {
 	content: 'Copied!';
 }
 
-#link:hover > .tooltip::after {
+#link > .tooltip::after {
 	position: absolute;
 	margin-top: -0.4rem;
 	top: 50%;
@@ -239,7 +245,7 @@ span {
 	content: '';
 }
 
-#link:active > .tooltip::after {
+#link.copied > .tooltip::after {
 	border-right-color: #F60;
 }
 
