@@ -314,16 +314,24 @@ span {
 	cursor: pointer;
 }
 
-.section:hover {
-	background-color: #F60;
+::-webkit-scrollbar {
+	width: 0.8rem;
+	-webkit-appearance: none;
 }
 
-.section:active {
-	background-color: #D40;
+::-webkit-scrollbar-thumb {
+	background-color: black;
 }
 
+::-webkit-scrollbar-thumb:hover,
+.section:hover,
 button.selected {
 	background-color: #F60;
+}
+
+::-webkit-scrollbar-thumb:active,
+.section:active {
+	background-color: #D40;
 }
 
 span.selected {
