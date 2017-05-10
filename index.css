@@ -320,7 +320,7 @@ span {
 }
 
 ::-webkit-scrollbar-thumb {
-	background-color: black;
+	background-color: silver;
 }
 
 ::-webkit-scrollbar-thumb:hover,
