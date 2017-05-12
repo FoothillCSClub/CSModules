@@ -1,57 +1,6 @@
-var position = location.hash && location.hash.slice(1).toLowerCase().split('.') || document.cookie && document.cookie.slice(9).split('.') || ['1a', '1a', 1],
-    list;
+var position = location.hash && location.hash.slice(1).toLowerCase().split('.') || document.cookie && document.cookie.slice(9).split('.') || ['1a', '1a', 1];
 
 (function() {
-	var xhr = new XMLHttpRequest();
-	xhr.open('GET', 'modules.json');
-	xhr.onreadystatechange = function() {
-		if (xhr.readyState === 4 && xhr.status === 200) {
-			list = JSON.parse(xhr.responseText);
-			genList();
-			setCourse(position[0]);
-			setFrame(position[0], position[1], parseInt(position[2]));
-		}
-	};
-	xhr.send();
-
-	history.replaceState(undefined, undefined, '.');
-	
-	var clipboard = new Clipboard('#link', {
-		text: function() {
-			var link = document.getElementById('link');
-			link.classList.add('copied');
-			setTimeout(function() {
-				link.classList.remove('copied');
-			}, 1000);
-			return document.location + '#' + position.join('.');
-		}
-	});
-
-	if (/Android|iP(hone|od)/.test(navigator.userAgent)) {
-		// Move navigation to bottom of screen on smartphones in portrait view
-		function togglePortrait() {
-			var nav = document.getElementsByClassName('nav');
-			for (var i = 0; i < nav.length; i++)
-				nav[i].classList.toggle('portrait');
-		}
-
-		if (screen.height > screen.width) {
-			document.documentElement.style.fontSize = '200%';
-			togglePortrait();
-		} else
-			document.documentElement.style.fontSize = '125%';
-
-		window.addEventListener('orientationchange', function() {
-			togglePortrait();
-			if (screen.height > screen.width)
-				document.documentElement.style.fontSize = '200%';
-			else
-				document.documentElement.style.fontSize = '125%';
-		});
-	}
-})();
-
-function genList() {
 	var navCourses = document.getElementById('nav-courses'),
 	    navList = document.getElementById('nav-list');
 
@@ -97,7 +46,46 @@ function genList() {
 			navList.appendChild(document.createElement('br'));
 		}
 	}
-}
+
+	setCourse(position[0]);
+	setFrame(position[0], position[1], parseInt(position[2]));
+
+	history.replaceState(undefined, undefined, '.');
+	
+	var clipboard = new Clipboard('#link', {
+		text: function() {
+			var link = document.getElementById('link');
+			link.classList.add('copied');
+			setTimeout(function() {
+				link.classList.remove('copied');
+			}, 1000);
+			return document.location + '#' + position.join('.');
+		}
+	});
+
+	if (/Android|iP(hone|od)/.test(navigator.userAgent)) {
+		// Move navigation to bottom of screen on smartphones in portrait view
+		function togglePortrait() {
+			var nav = document.getElementsByClassName('nav');
+			for (var i = 0; i < nav.length; i++)
+				nav[i].classList.toggle('portrait');
+		}
+
+		if (screen.height > screen.width) {
+			document.documentElement.style.fontSize = '200%';
+			togglePortrait();
+		} else
+			document.documentElement.style.fontSize = '125%';
+
+		window.addEventListener('orientationchange', function() {
+			togglePortrait();
+			if (screen.height > screen.width)
+				document.documentElement.style.fontSize = '200%';
+			else
+				document.documentElement.style.fontSize = '125%';
+		});
+	}
+})();
 
 function hideList() {
 	document.getElementById('nav-menu').checked = false;
@@ -185,12 +173,12 @@ function setCourse(course) {
 
 function setFrame(course, chapter, section) {
 	if ((/(1|2)b/).test(course) && chapter === '3a' && 1 < section && section < 6)
-		var url = 'https://www.fgamedia.org/faculty/loceff/cs_courses/common/LIFE/cs_1and2B_3a_' + section + '.html';
+		var url = 'https://fgamedia.org/faculty/loceff/cs_courses/common/LIFE/cs_1and2B_3a_' + section + '.html';
 	else if (course === '1b' && chapter === '7b' && (section === 2 || 4 < section)) {
 		if (section === 2)
-			var url = 'https://www.fgamedia.org/faculty/loceff/cs_courses/common/BARCODE/cs_1and2B_6b_3.html';
+			var url = 'https://fgamedia.org/faculty/loceff/cs_courses/common/BARCODE/cs_1and2B_6b_3.html';
 		else
-			var url = 'https://www.fgamedia.org/faculty/loceff/cs_courses/common/LIFE/cs_1and2B_bool_func_' + (section - 4) + '.html';
+			var url = 'https://fgamedia.org/faculty/loceff/cs_courses/common/LIFE/cs_1and2B_bool_func_' + (section - 4) + '.html';
 	} else
 		var url = 'https://fgamedia.org/faculty/loceff/cs_courses/cs_' + course + '/cs_' + course.toUpperCase() + '_' + chapter + '_' + section + '.html';
 	document.getElementById('frame').src = url;
