@@ -197,11 +197,10 @@ function setFrame(course, chapter, section) {
 			var url = 'https://fgamedia.org/faculty/loceff/cs_courses/common/BARCODE/cs_1and2B_6b_3.html';
 		else
 			var url = 'https://fgamedia.org/faculty/loceff/cs_courses/common/LIFE/cs_1and2B_bool_func_' + (section - 4) + '.html';
-	} else {
-		if (course === '1c' && chapter === '4a' && section === 5)
-			course = '1b', chapter = '9b', section = 6;
+	} else if (course === '1c' && chapter === '4a' && section === 5)
+		var url = 'https://fgamedia.org/faculty/loceff/cs_courses/cs_1b/cs_1B_9b_6.html';
+	else
 		var url = 'https://fgamedia.org/faculty/loceff/cs_courses/cs_' + course + '/cs_' + course.toUpperCase() + '_' + chapter + '_' + section + '.html';
-	}
 	document.getElementById('frame').src = url;
 
 	// Highlight corresponding module list buttons
