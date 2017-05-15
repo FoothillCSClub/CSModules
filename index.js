@@ -195,5 +195,5 @@ function setFrame(course, chapter, section) {
 
 	position = [course, chapter, section];
 	console.log(position.join('.').toUpperCase(), url);
-	document.cookie = 'position=' + position.join('.');
+	document.cookie = 'position=' + position.join('.') + '; max-age=31536000';
 }
