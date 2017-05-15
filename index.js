@@ -64,6 +64,7 @@ var position = location.hash && location.hash.slice(1).toLowerCase().split('.') 
 		}
 	});
 
+	// Detect swipe gesture on touchscreens
 	navList.addEventListener('touchstart', function(e) {
 		touchStart.x = e.changedTouches[0].clientX;
 		touchStart.y = e.changedTouches[0].clientY;
@@ -75,7 +76,7 @@ var position = location.hash && location.hash.slice(1).toLowerCase().split('.') 
 			var dx = e.changedTouches[0].clientX - touchStart.x,
 			    dy = e.changedTouches[0].clientY - touchStart.y,
 			    angle = Math.atan2(dy, dx);
-			if ((2.356 < angle || angle < -2.356) && dx*dx+dy*dy > 10000)
+			if ((2.3 < angle || angle < -2.3) && dx*dx+dy*dy > 10000)
 				hideList();
 		}
 	});
@@ -196,8 +197,11 @@ function setFrame(course, chapter, section) {
 			var url = 'https://fgamedia.org/faculty/loceff/cs_courses/common/BARCODE/cs_1and2B_6b_3.html';
 		else
 			var url = 'https://fgamedia.org/faculty/loceff/cs_courses/common/LIFE/cs_1and2B_bool_func_' + (section - 4) + '.html';
-	} else
+	} else {
+		if (course === '1c' && chapter === '4a' && section === 5)
+			course = '1b', chapter = '9b', section = 6;
 		var url = 'https://fgamedia.org/faculty/loceff/cs_courses/cs_' + course + '/cs_' + course.toUpperCase() + '_' + chapter + '_' + section + '.html';
+	}
 	document.getElementById('frame').src = url;
 
 	// Highlight corresponding module list buttons
