@@ -1,4 +1,5 @@
-var position = location.hash && location.hash.slice(1).toLowerCase().split('.') || document.cookie && document.cookie.slice(9).split('.') || ['1a', '1a', 1];
+var position = location.hash && location.hash.slice(1).toLowerCase().split('.') || document.cookie && document.cookie.slice(9).split('.') || ['1a', '1a', 1],
+    touchStart = {x:0, y:0, t:0};
 
 (function() {
 	var navCourses = document.getElementById('nav-courses'),
@@ -60,6 +61,22 @@ var position = location.hash && location.hash.slice(1).toLowerCase().split('.') 
 				link.classList.remove('copied');
 			}, 1000);
 			return document.location + '#' + position.join('.');
+		}
+	});
+
+	navList.addEventListener('touchstart', function(e) {
+		touchStart.x = e.changedTouches[0].clientX;
+		touchStart.y = e.changedTouches[0].clientY;
+		touchStart.t = new Date().getTime();
+	});
+
+	navList.addEventListener('touchend', function(e) {
+		if (new Date().getTime() - touchStart.t < 400) {
+			var dx = e.changedTouches[0].clientX - touchStart.x,
+			    dy = e.changedTouches[0].clientY - touchStart.y,
+			    angle = Math.atan2(dy, dx);
+			if ((2.356 < angle || angle < -2.356) && dx*dx+dy*dy > 10000)
+				hideList();
 		}
 	});
 
@@ -148,7 +165,7 @@ document.addEventListener('keydown', function(e) {
 		case 40: // Down arrow
 			jumpChapter(1);
 	}
-}, false);
+});
 
 function setCourse(course) {
 	var navList = document.getElementById('nav-list'),
