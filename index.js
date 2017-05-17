@@ -1,9 +1,10 @@
-var position = location.hash && location.hash.slice(1).toLowerCase().split('.') || document.cookie && document.cookie.slice(9).split('.') || ['1a', '1a', 1],
-    touchStart = {x:0, y:0, t:0};
+var position = location.hash && location.hash.slice(1).toLowerCase().split('.') || document.cookie && document.cookie.slice(9).split('.') || ['1a', '1a', 1];
+var touchStartX;
 
 (function() {
-	var navCourses = document.getElementById('nav-courses'),
-	    navList = document.getElementById('nav-list');
+	var navMenu = document.getElementById('nav-menu');
+	var navCourses = document.getElementById('nav-courses');
+	var navList = document.getElementById('nav-list');
 
 	for (var course in list) {
 		// Generate course button
@@ -29,8 +30,8 @@ var position = location.hash && location.hash.slice(1).toLowerCase().split('.') 
 		navList.appendChild(document.createElement('br'));
 		for (var c = 0; c < list[course].c.length; c++) {
 			// Generate chapter title
-			var chapter = list[course].c[c],
-			    chapterSpan = document.createElement('span');
+			var chapter = list[course].c[c];
+			var chapterSpan = document.createElement('span');
 			chapterSpan.id = course + chapter;
 			chapterSpan.innerHTML = chapter.toUpperCase();
 			navList.appendChild(chapterSpan);
@@ -48,11 +49,15 @@ var position = location.hash && location.hash.slice(1).toLowerCase().split('.') 
 		}
 	}
 
-	setCourse(position[0]);
 	setFrame(position[0], position[1], parseInt(position[2]));
+	setTimeout(function() {
+		setCourse(position[0]);
+	}, 1);
 
-	history.replaceState(undefined, undefined, '.');
-	
+	if (document.location.host)
+		// Remove duplicate history entry created by location hash
+		history.replaceState(undefined, undefined, '.');
+
 	var clipboard = new Clipboard('#link', {
 		text: function() {
 			var link = document.getElementById('link');
@@ -64,21 +69,31 @@ var position = location.hash && location.hash.slice(1).toLowerCase().split('.') 
 		}
 	});
 
+	navMenu.onchange = function() {
+		if (this.checked)
+			navList.style.transform = 'translateX(0)';
+		else
+			navList.style.transform = 'translateX(-23rem)';
+	};
+
 	// Detect swipe gesture on touchscreens
 	navList.addEventListener('touchstart', function(e) {
-		touchStart.x = e.changedTouches[0].clientX;
-		touchStart.y = e.changedTouches[0].clientY;
-		touchStart.t = new Date().getTime();
+		touchStartX = e.changedTouches[0].clientX;
+	});
+
+	// List follows finger
+	navList.addEventListener('touchmove', function(e) {
+		var dx = e.changedTouches[0].clientX - touchStartX;
+		if (dx < 0)
+			navList.style.transform = 'translateX(' + dx + 'px)';
 	});
 
 	navList.addEventListener('touchend', function(e) {
-		if (new Date().getTime() - touchStart.t < 400) {
-			var dx = e.changedTouches[0].clientX - touchStart.x,
-			    dy = e.changedTouches[0].clientY - touchStart.y,
-			    angle = Math.atan2(dy, dx);
-			if ((2.3 < angle || angle < -2.3) && dx*dx+dy*dy > 10000)
-				hideList();
-		}
+		var dx = e.changedTouches[0].clientX - touchStartX;
+		if (dx < -100)
+			hideList();
+		else
+			navList.style.transform = 'translateX(0)';
 	});
 
 	if (/Android|iP(hone|od)/.test(navigator.userAgent)) {
@@ -106,7 +121,9 @@ var position = location.hash && location.hash.slice(1).toLowerCase().split('.') 
 })();
 
 function hideList() {
-	document.getElementById('nav-menu').checked = false;
+	var navMenu = document.getElementById('nav-menu');
+	navMenu.checked = false;
+	navMenu.onchange();
 }
 
 window.onhashchange = function() {
@@ -128,8 +145,8 @@ function jumpPrev() {
 }
 
 function jumpNext() {
-	var p = position.slice(),
-	    idx = list[position[0]].c.indexOf(position[1]);
+	var p = position.slice();
+	var idx = list[position[0]].c.indexOf(position[1]);
 	if (position[2] < list[position[0]].s[idx])
 		p[2]++;
 	else if (idx < list[position[0]].c.length - 1) {
@@ -140,8 +157,8 @@ function jumpNext() {
 }
 
 function jumpChapter(n) {
-	var p = position.slice(),
-	    idx = list[position[0]].c.indexOf(position[1]);
+	var p = position.slice();
+	var idx = list[position[0]].c.indexOf(position[1]);
 	if (n < 0 && idx > 0)
 		p[1] = list[position[0]].c[--idx];
 	else if (n > 0 && idx < list[position[0]].c.length - 1)
@@ -169,10 +186,10 @@ document.addEventListener('keydown', function(e) {
 });
 
 function setCourse(course) {
-	var navList = document.getElementById('nav-list'),
-	    scrollPosition = navList.scrollTop,
-	    distance = document.getElementById(course + '-anchor').offsetTop - scrollPosition,
-	    counter = 0;
+	var navList = document.getElementById('nav-list');
+	var scrollPosition = navList.scrollTop;
+	var distance = document.getElementById(course + '-anchor').offsetTop - scrollPosition;
+	var counter = 0;
 
 	function smoothStep(n) {
 		return n * n * (3 - 2 * n);
