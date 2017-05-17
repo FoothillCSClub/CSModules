@@ -1,11 +1,12 @@
 var position = location.hash && location.hash.slice(1).toLowerCase().split('.') || document.cookie && document.cookie.slice(9).split('.') || ['1a', '1a', 1];
-var touchStartX;
 
 (function() {
 	var navMenu = document.getElementById('nav-menu');
 	var navLink = document.getElementById('nav-link');
 	var navCourses = document.getElementById('nav-courses');
 	var navList = document.getElementById('nav-list');
+	var touchStartX;
+	var touchTime;
 
 	for (var course in list) {
 		// Generate course button
@@ -84,10 +85,14 @@ var touchStartX;
 	// Detect swipe gesture on touchscreens
 	navList.addEventListener('touchstart', function(e) {
 		touchStartX = e.changedTouches[0].clientX;
+		touchTime = Date.now();
 	});
 
 	// List follows finger
 	navList.addEventListener('touchmove', function(e) {
+		// Throttle execution
+		if (Date.now() - touchTime < 25) return;
+		touchTime = Date.now();
 		var dx = e.changedTouches[0].clientX - touchStartX;
 		if (dx < 0) {
 			navLink.style.left = 'calc(' + (dx * 0.3) + 'px + 1rem)';
