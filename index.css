@@ -131,7 +131,7 @@ span {
 	font-weight: bold;
 }
 
-#chapter {
+#nav-chapter {
 	top: 10.2rem;
 	height: auto;
 	width: auto;
@@ -141,38 +141,37 @@ span {
 	pointer-events: none;
 }
 
-#chapter.portrait {
+#nav-chapter.portrait {
 	top: auto;
 	bottom: 10rem;
 }
 
-#nav-menu:checked ~ #chapter {
+#nav-menu:checked ~ #nav-chapter {
 	left: -10rem;
 }
 
-#link {
+#nav-link {
 	top: 10rem;
 	left: -10rem;
 	transition: left 0.3s;
 }
 
-#link.portrait {
+#nav-link.portrait {
 	top: auto;
 	bottom: 10rem;
 }
 
-#nav-menu:checked ~ #link {
-	left: 1rem;
+#nav-menu:checked ~ #nav-link {
 	transition: left 0.4s;
 }
 
-#link > svg {
+#nav-link > svg {
 	fill: none;
 	stroke: black;
 	stroke-width: 12;
 }
 
-#link:hover > svg {
+#nav-link:hover > svg {
 	stroke: #F60;
 }
 
@@ -180,7 +179,7 @@ span {
 	stroke: #D40;
 }
 
-#link > .tooltip {
+#nav-link > .tooltip {
 	position: absolute;
 	display: none;
 	top: 0;
@@ -192,17 +191,17 @@ span {
 	text-align: center;
 }
 
-#link:hover > .tooltip {
+#nav-link:hover > .tooltip {
 	display: block;
 }
 
-#link.copied > .tooltip {
+#nav-link.copied > .tooltip {
 	display: block;
 	width: 4.4rem;
 	background-color: #F60;
 }
 
-#link > .tooltip::before {
+#nav-link > .tooltip::before {
 	color: white;
 	font-family: sans-serif;
 	font-size: 1rem;
@@ -211,11 +210,11 @@ span {
 	content: 'Copy module link';
 }
 
-#link.copied > .tooltip::before {
+#nav-link.copied > .tooltip::before {
 	content: 'Copied!';
 }
 
-#link > .tooltip::after {
+#nav-link > .tooltip::after {
 	position: absolute;
 	margin-top: -0.4rem;
 	top: 50%;
@@ -225,7 +224,7 @@ span {
 	content: '';
 }
 
-#link.copied > .tooltip::after {
+#nav-link.copied > .tooltip::after {
 	border-right-color: #F60;
 }
 
@@ -247,7 +246,6 @@ span {
 }
 
 #nav-menu:checked ~ #nav-courses {
-	left: 0.7rem;
 	transition: left 0.5s;
 }
 
@@ -265,12 +263,12 @@ span {
 	z-index: 1;
 	overflow: auto;
 	top: 0;
+	left: -23rem;
 	height: 100%;
 	width: 22rem;
 	background-color: white;
 	box-shadow: 0 0 1rem;
-	transform: translateX(-23rem);
-	transition: transform 0.3s;
+	transition: left 0.3s;
 }
 
 #nav-list > span {

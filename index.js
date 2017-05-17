@@ -3,6 +3,7 @@ var touchStartX;
 
 (function() {
 	var navMenu = document.getElementById('nav-menu');
+	var navLink = document.getElementById('nav-link');
 	var navCourses = document.getElementById('nav-courses');
 	var navList = document.getElementById('nav-list');
 
@@ -58,22 +59,26 @@ var touchStartX;
 		// Remove duplicate history entry created by location hash
 		history.replaceState(undefined, undefined, '.');
 
-	var clipboard = new Clipboard('#link', {
+	var clipboard = new Clipboard('#nav-link', {
 		text: function() {
-			var link = document.getElementById('link');
-			link.classList.add('copied');
+			navLink.classList.add('copied');
 			setTimeout(function() {
-				link.classList.remove('copied');
+				navLink.classList.remove('copied');
 			}, 1000);
 			return document.location + '#' + position.join('.');
 		}
 	});
 
 	navMenu.onchange = function() {
-		if (this.checked)
-			navList.style.transform = 'translateX(0)';
-		else
-			navList.style.transform = 'translateX(-23rem)';
+		if (this.checked) {
+			navLink.style.left = '1rem';
+			navCourses.style.left = '0.7rem';
+			navList.style.left = 0;
+		} else {
+			navLink.style.left = '-10rem';
+			navCourses.style.left = '-10rem';
+			navList.style.left = '-23rem';
+		}
 	};
 
 	// Detect swipe gesture on touchscreens
@@ -84,16 +89,18 @@ var touchStartX;
 	// List follows finger
 	navList.addEventListener('touchmove', function(e) {
 		var dx = e.changedTouches[0].clientX - touchStartX;
-		if (dx < 0)
-			navList.style.transform = 'translateX(' + dx + 'px)';
+		if (dx < 0) {
+			navLink.style.left = 'calc(' + (dx * 0.3) + 'px + 1rem)';
+			navCourses.style.left = 'calc(' + (dx * 0.5) + 'px + 0.7rem)';
+			navList.style.left = dx + 'px';
+		}
 	});
 
 	navList.addEventListener('touchend', function(e) {
-		var dx = e.changedTouches[0].clientX - touchStartX;
-		if (dx < -100)
+		if (e.changedTouches[0].clientX - touchStartX < -100)
 			hideList();
 		else
-			navList.style.transform = 'translateX(0)';
+			navMenu.onchange();
 	});
 
 	if (/Android|iP(hone|od)/.test(navigator.userAgent)) {
@@ -227,7 +234,7 @@ function setFrame(course, chapter, section) {
 	document.getElementById(course).classList.add('selected');
 	document.getElementById(course + chapter).classList.add('selected');
 	document.getElementById(course + chapter + section).classList.add('selected');
-	document.getElementById('chapter').innerHTML = chapter.toUpperCase();
+	document.getElementById('nav-chapter').innerHTML = chapter.toUpperCase();
 	document.title = 'CS ' + (course + ' ' + chapter).toUpperCase() + '.' + section;
 
 	position = [course, chapter, section];
