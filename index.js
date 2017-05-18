@@ -8,7 +8,7 @@ var position = location.hash && location.hash.slice(1).toLowerCase().split('.') 
 	var touchStartX;
 	var touchTime;
 
-	for (var course in list) {
+	for (var course in modules) {
 		// Generate course button
 		navCourses.appendChild(document.createElement('br'));
 		var courseBtn = document.createElement('button');
@@ -30,15 +30,15 @@ var position = location.hash && location.hash.slice(1).toLowerCase().split('.') 
 		navList.appendChild(courseSpan);
 		navList.appendChild(document.createElement('br'));
 		navList.appendChild(document.createElement('br'));
-		for (var c = 0; c < list[course].c.length; c++) {
+		for (var c = 0; c < modules[course].c.length; c++) {
 			// Generate chapter title
-			var chapter = list[course].c[c];
+			var chapter = modules[course].c[c];
 			var chapterSpan = document.createElement('span');
 			chapterSpan.id = course + chapter;
 			chapterSpan.innerHTML = chapter.toUpperCase();
 			navList.appendChild(chapterSpan);
 			// Generate section buttons
-			for (var s = 1; s <= list[course].s[c]; s++) {
+			for (var s = 1; s <= modules[course].s[c]; s++) {
 				var sectionBtn = document.createElement('button');
 				sectionBtn.type = 'button';
 				sectionBtn.className = 'section';
@@ -149,20 +149,20 @@ function jumpPrev() {
 	if (position[2] > 1)
 		p[2]--;
 	else if (position[1] !== '1a') {
-		var idx = list[position[0]].c.indexOf(position[1]);
-		p[1] = list[position[0]].c[idx - 1];
-		p[2] = list[position[0]].s[idx - 1];
+		var idx = modules[position[0]].c.indexOf(position[1]);
+		p[1] = modules[position[0]].c[idx - 1];
+		p[2] = modules[position[0]].s[idx - 1];
 	} else return;
 	setFrame(p[0], p[1], p[2]);
 }
 
 function jumpNext() {
 	var p = position.slice();
-	var idx = list[position[0]].c.indexOf(position[1]);
-	if (position[2] < list[position[0]].s[idx])
+	var idx = modules[position[0]].c.indexOf(position[1]);
+	if (position[2] < modules[position[0]].s[idx])
 		p[2]++;
-	else if (idx < list[position[0]].c.length - 1) {
-		p[1] = list[position[0]].c[idx + 1];
+	else if (idx < modules[position[0]].c.length - 1) {
+		p[1] = modules[position[0]].c[idx + 1];
 		p[2] = 1;
 	} else return;
 	setFrame(p[0], p[1], p[2]);
@@ -170,14 +170,14 @@ function jumpNext() {
 
 function jumpChapter(n) {
 	var p = position.slice();
-	var idx = list[position[0]].c.indexOf(position[1]);
+	var idx = modules[position[0]].c.indexOf(position[1]);
 	if (n < 0 && idx > 0)
-		p[1] = list[position[0]].c[--idx];
-	else if (n > 0 && idx < list[position[0]].c.length - 1)
-		p[1] = list[position[0]].c[++idx];
+		p[1] = modules[position[0]].c[--idx];
+	else if (n > 0 && idx < modules[position[0]].c.length - 1)
+		p[1] = modules[position[0]].c[++idx];
 	else return;
-	if (p[2] > list[position[0]].s[idx])
-		p[2] = list[position[0]].s[idx];
+	if (p[2] > modules[position[0]].s[idx])
+		p[2] = modules[position[0]].s[idx];
 	setFrame(p[0], p[1], p[2]);
 }
 
@@ -219,17 +219,7 @@ function setCourse(course) {
 }
 
 function setFrame(course, chapter, section) {
-	if ((/(1|2)b/).test(course) && chapter === '3a' && 1 < section && section < 6)
-		var url = 'https://fgamedia.org/faculty/loceff/cs_courses/common/LIFE/cs_1and2B_3a_' + section + '.html';
-	else if (course === '1b' && chapter === '7b' && (section === 2 || 4 < section)) {
-		if (section === 2)
-			var url = 'https://fgamedia.org/faculty/loceff/cs_courses/common/BARCODE/cs_1and2B_6b_3.html';
-		else
-			var url = 'https://fgamedia.org/faculty/loceff/cs_courses/common/LIFE/cs_1and2B_bool_func_' + (section - 4) + '.html';
-	} else if (course === '1c' && chapter === '4a' && section === 5)
-		var url = 'https://fgamedia.org/faculty/loceff/cs_courses/cs_1b/cs_1B_9b_6.html';
-	else
-		var url = 'https://fgamedia.org/faculty/loceff/cs_courses/cs_' + course + '/cs_' + course.toUpperCase() + '_' + chapter + '_' + section + '.html';
+	var url = 'https://fgamedia.org/faculty/loceff/cs_courses/' + (urls[course][chapter] && urls[course][chapter][section] || 'cs_' + course + '/cs_' + course.toUpperCase() + '_' + chapter + '_' + section + '.html');
 	document.getElementById('frame').src = url;
 
 	// Highlight corresponding module list buttons
