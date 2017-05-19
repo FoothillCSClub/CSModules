@@ -26,33 +26,34 @@ var modules = {
 };
 
 var urls = {
+	base:'https://fgamedia.org/faculty/loceff/cs_courses/',
 	'1a':{},
 	'1b':{
 		'3a':{
-			2:'common/LIFE/cs_1and2B_3a_2.html',
-			3:'common/LIFE/cs_1and2B_3a_3.html',
-			4:'common/LIFE/cs_1and2B_3a_4.html',
-			5:'common/LIFE/cs_1and2B_3a_5.html'
+			2:'common/LIFE/cs_1and2B_3a_2',
+			3:'common/LIFE/cs_1and2B_3a_3',
+			4:'common/LIFE/cs_1and2B_3a_4',
+			5:'common/LIFE/cs_1and2B_3a_5'
 		},
 		'7b':{
-			2:'common/BARCODE/cs_1and2B_6b_3.html',
-			5:'common/LIFE/cs_1and2B_bool_func_1.html',
-			6:'common/LIFE/cs_1and2B_bool_func_2.html',
-			7:'common/LIFE/cs_1and2B_bool_func_3.html'
+			2:'common/BARCODE/cs_1and2B_6b_3',
+			5:'common/LIFE/cs_1and2B_bool_func_1',
+			6:'common/LIFE/cs_1and2B_bool_func_2',
+			7:'common/LIFE/cs_1and2B_bool_func_3'
 		}
 	},
 	'1c':{
 		'4a':{
-			5:'cs_1b/cs_1B_9b_6.html'
+			5:'cs_1b/cs_1B_9b_6'
 		}
 	},
 	'2a':{},
 	'2b':{
 		'3a':{
-			2:'common/LIFE/cs_1and2B_3a_2.html',
-			3:'common/LIFE/cs_1and2B_3a_3.html',
-			4:'common/LIFE/cs_1and2B_3a_4.html',
-			5:'common/LIFE/cs_1and2B_3a_5.html'
+			2:'common/LIFE/cs_1and2B_3a_2',
+			3:'common/LIFE/cs_1and2B_3a_3',
+			4:'common/LIFE/cs_1and2B_3a_4',
+			5:'common/LIFE/cs_1and2B_3a_5'
 		}
 	},
 	'2c':{}

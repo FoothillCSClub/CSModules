@@ -219,7 +219,7 @@ function setCourse(course) {
 }
 
 function setFrame(course, chapter, section) {
-	var url = 'https://fgamedia.org/faculty/loceff/cs_courses/' + (urls[course][chapter] && urls[course][chapter][section] || 'cs_' + course + '/cs_' + course.toUpperCase() + '_' + chapter + '_' + section + '.html');
+	var url = urls.base + (urls[course][chapter] && urls[course][chapter][section] || 'cs_' + course + '/cs_' + course.toUpperCase() + '_' + chapter + '_' + section) + '.html';
 	document.getElementById('frame').src = url;
 
 	// Highlight corresponding module list buttons
