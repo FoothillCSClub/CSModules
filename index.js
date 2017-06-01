@@ -1,4 +1,4 @@
-var position = location.hash && location.hash.slice(1).toLowerCase().split('.') || document.cookie && document.cookie.slice(9).split('.') || ['1a', '1a', 1];
+var position = location.hash && location.hash.slice(1).toLowerCase().split('.') || localStorage.position && localStorage.position.split('.') || ['1a', '1a', 1];
 
 (function() {
 	var navMenu = document.getElementById('nav-menu');
@@ -10,7 +10,6 @@ var position = location.hash && location.hash.slice(1).toLowerCase().split('.') 
 
 	for (var course in modules) {
 		// Generate course button
-		navCourses.appendChild(document.createElement('br'));
 		var courseBtn = document.createElement('button');
 		courseBtn.type = 'button';
 		courseBtn.className = 'section';
@@ -18,48 +17,47 @@ var position = location.hash && location.hash.slice(1).toLowerCase().split('.') 
 		courseBtn.setAttribute('onclick', 'setCourse("' + course + '")');
 		courseBtn.innerHTML = course.toUpperCase();
 		navCourses.appendChild(courseBtn);
-		// Generate course anchor
-		var courseAnchor = document.createElement('div');
-		courseAnchor.id = course + '-anchor';
-		navList.appendChild(courseAnchor);
+		navCourses.appendChild(document.createElement('br'));
 		// Generate course title
-		navList.appendChild(document.createElement('br'));
-		var courseSpan = document.createElement('span');
-		courseSpan.style.fontSize = '250%';
-		courseSpan.innerHTML = course.toUpperCase();
-		navList.appendChild(courseSpan);
-		navList.appendChild(document.createElement('br'));
-		navList.appendChild(document.createElement('br'));
-		for (var c = 0; c < modules[course].c.length; c++) {
+		var courseTitle = document.createElement('h1');
+		courseTitle.id = course + '-title';
+		courseTitle.innerHTML = course.toUpperCase();
+		navList.appendChild(courseTitle);
+		for (var c = 0, cLen = modules[course].length; c < cLen; c++) {
 			// Generate chapter title
-			var chapter = modules[course].c[c];
-			var chapterSpan = document.createElement('span');
-			chapterSpan.id = course + chapter;
-			chapterSpan.innerHTML = chapter.toUpperCase();
-			navList.appendChild(chapterSpan);
+			var chapterTitleContainer = document.createElement('div');
+			chapterTitleContainer.setAttribute('onmouseenter', 'scrollTitle(this)');
+			chapterTitleContainer.setAttribute('onmouseleave', 'unscrollTitle(this)');
+			navList.appendChild(chapterTitleContainer);
+			var chapter = modules[course][c].c;
+			var chapterTitle = document.createElement('h4');
+			chapterTitle.id = course + chapter;
+			chapterTitle.innerHTML = '<span>' + chapter.toUpperCase() + '</span>' + ' - ' + modules[course][c].t;
+			chapterTitleContainer.appendChild(chapterTitle);
 			// Generate section buttons
-			for (var s = 1; s <= modules[course].s[c]; s++) {
+			for (var s = 1, sLen = modules[course][c].s; s <= sLen; s++) {
 				var sectionBtn = document.createElement('button');
 				sectionBtn.type = 'button';
 				sectionBtn.className = 'section';
-				sectionBtn.id = course + chapter + s;
-				sectionBtn.setAttribute('onclick', 'setFrame("' + course + '","' + chapter + '",' + s + ')');
+				sectionBtn.id = course + '-' + chapter + '-' + s;
 				sectionBtn.innerHTML = s;
 				navList.appendChild(sectionBtn);
 			}
-			navList.appendChild(document.createElement('br'));
 		}
 	}
 
-	setFrame(position[0], position[1], parseInt(position[2]));
+	// Wait for above generated elements to reflow
+	// Workaround to support offline use - load event does not work on local web page
 	setTimeout(function() {
 		setCourse(position[0]);
+		setFrame(position[0], position[1], parseInt(position[2]));
 	}, 1);
 
 	if (document.location.host)
 		// Remove duplicate history entry created by location hash
 		history.replaceState(undefined, undefined, '.');
 
+	// Copy module link to clipboard
 	var clipboard = new Clipboard('#nav-link', {
 		text: function() {
 			navLink.classList.add('copied');
@@ -73,14 +71,23 @@ var position = location.hash && location.hash.slice(1).toLowerCase().split('.') 
 	navMenu.onchange = function() {
 		if (this.checked) {
 			navLink.style.left = '1rem';
-			navCourses.style.left = '0.7rem';
+			navCourses.style.left = '0.6rem';
 			navList.style.left = 0;
 		} else {
 			navLink.style.left = '-10rem';
 			navCourses.style.left = '-10rem';
-			navList.style.left = '-23rem';
+			navList.style.left = '-24rem';
 		}
 	};
+
+	// Detect section button click
+	navList.addEventListener('click', function(e) {
+		if (e.target.className === 'section') {
+			var p = e.target.id.split('-');
+			setFrame(p[0], p[1], p[2]);
+			e.stopPropagation();
+		}
+	});
 
 	// Detect swipe gesture on touchscreens
 	navList.addEventListener('touchstart', function(e) {
@@ -132,37 +139,53 @@ var position = location.hash && location.hash.slice(1).toLowerCase().split('.') 
 	}
 })();
 
-function hideList() {
-	var navMenu = document.getElementById('nav-menu');
-	navMenu.checked = false;
-	navMenu.onchange();
-}
-
+// Change module when user pastes module link into address bar post-load
 window.onhashchange = function() {
 	var p = location.hash.slice(1).toLowerCase().split('.');
 	setFrame(p[0], p[1], p[2]);
 	history.replaceState(undefined, undefined, '.');
 };
 
+function hideList() {
+	var navMenu = document.getElementById('nav-menu');
+	navMenu.checked = false;
+	navMenu.onchange();
+}
+
+// Scroll long chapter title text into view
+function scrollTitle(el) {
+	if (el.clientWidth < el.firstChild.offsetWidth)
+		el.firstChild.style.left = (el.clientWidth - el.firstChild.offsetWidth - 6) + 'px';
+}
+
+function unscrollTitle(el) {
+	el.firstChild.style.left = el.firstChild.style.left && 0;
+}
+
+// Get array index of chapter in course
+function getIndex(course, chapter) {
+	return modules[course].findIndex(obj => obj.c === chapter);
+}
+
 function jumpPrev() {
 	var p = position.slice();
-	if (position[2] > 1)
+	if (p[2] > 1)
 		p[2]--;
-	else if (position[1] !== '1a') {
-		var idx = modules[position[0]].c.indexOf(position[1]);
-		p[1] = modules[position[0]].c[idx - 1];
-		p[2] = modules[position[0]].s[idx - 1];
+	else if (p[1] !== modules[p[0]][0].c) {
+		var idx = getIndex(p[0], p[1]);
+		p[1] = modules[p[0]][--idx].c;
+		p[2] = modules[p[0]][idx].s;
 	} else return;
 	setFrame(p[0], p[1], p[2]);
 }
 
 function jumpNext() {
 	var p = position.slice();
-	var idx = modules[position[0]].c.indexOf(position[1]);
-	if (position[2] < modules[position[0]].s[idx])
+	var idx = getIndex(p[0], p[1]);
+	if (p[2] < modules[p[0]][idx].s)
 		p[2]++;
-	else if (idx < modules[position[0]].c.length - 1) {
-		p[1] = modules[position[0]].c[idx + 1];
+	else if (idx < modules[p[0]].length - 1) {
+		p[1] = modules[p[0]][++idx].c;
 		p[2] = 1;
 	} else return;
 	setFrame(p[0], p[1], p[2]);
@@ -170,14 +193,14 @@ function jumpNext() {
 
 function jumpChapter(n) {
 	var p = position.slice();
-	var idx = modules[position[0]].c.indexOf(position[1]);
+	var idx = getIndex(p[0], p[1]);
 	if (n < 0 && idx > 0)
-		p[1] = modules[position[0]].c[--idx];
-	else if (n > 0 && idx < modules[position[0]].c.length - 1)
-		p[1] = modules[position[0]].c[++idx];
+		p[1] = modules[p[0]][--idx].c;
+	else if (n > 0 && idx < modules[p[0]].length - 1)
+		p[1] = modules[p[0]][++idx].c;
 	else return;
-	if (p[2] > modules[position[0]].s[idx])
-		p[2] = modules[position[0]].s[idx];
+	if (p[2] > modules[p[0]][idx].s)
+		p[2] = modules[p[0]][idx].s;
 	setFrame(p[0], p[1], p[2]);
 }
 
@@ -197,10 +220,11 @@ document.addEventListener('keydown', function(e) {
 	}
 });
 
+// Scroll module list to selected course
 function setCourse(course) {
 	var navList = document.getElementById('nav-list');
 	var scrollPosition = navList.scrollTop;
-	var distance = document.getElementById(course + '-anchor').offsetTop - scrollPosition;
+	var distance = document.getElementById(course + '-title').offsetTop - scrollPosition;
 	var counter = 0;
 
 	function smoothStep(n) {
@@ -215,24 +239,25 @@ function setCourse(course) {
 	}, 10);
 
 	if (position[0] !== course)
-		setFrame(course, '1a', 1);
+		setFrame(course, modules[course][0].c, 1);
 }
 
+// Load selected module in iframe
 function setFrame(course, chapter, section) {
 	var url = urls.base + (urls[course][chapter] && urls[course][chapter][section] || 'cs_' + course + '/cs_' + course.toUpperCase() + '_' + chapter + '_' + section) + '.html';
 	document.getElementById('frame').src = url;
 
 	// Highlight corresponding module list buttons
 	document.getElementById(position[0]).classList.remove('selected');
-	document.getElementById(position[0] + position[1]).classList.remove('selected');
-	document.getElementById(position.join('')).classList.remove('selected');
+	document.getElementById(position[0] + position[1]).firstChild.classList.remove('selected');
+	document.getElementById(position.join('-')).classList.remove('selected');
 	document.getElementById(course).classList.add('selected');
-	document.getElementById(course + chapter).classList.add('selected');
-	document.getElementById(course + chapter + section).classList.add('selected');
+	document.getElementById(course + chapter).firstChild.classList.add('selected');
+	document.getElementById(course + '-' + chapter + '-' + section).classList.add('selected');
 	document.getElementById('nav-chapter').innerHTML = chapter.toUpperCase();
 	document.title = 'CS ' + (course + ' ' + chapter).toUpperCase() + '.' + section;
 
 	position = [course, chapter, section];
+	localStorage.position = position.join('.');
 	console.log(position.join('.').toUpperCase(), url);
-	document.cookie = 'position=' + position.join('.') + '; max-age=31536000';
 }

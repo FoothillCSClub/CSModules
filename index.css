@@ -18,6 +18,14 @@ iframe {
 	width: 100%;
 }
 
+noscript {
+	display: block;
+	width: 100%;
+	margin-top: 2rem;
+	font-size: 200%;
+	text-align: center;
+}
+
 #nav-menu + label:hover::before,
 #nav-menu + label:hover::after,
 button.nav:hover::before {
@@ -90,8 +98,8 @@ button.nav:active::before {
 
 .nav.jump::before {
 	position: absolute;
-	padding: 0.4rem;
 	top: 0.25rem;
+	padding: 0.4rem;
 	border: solid black;
 	border-width: 0 0.3rem 0.3rem 0;
 	content: '';
@@ -125,10 +133,8 @@ button.nav:active::before {
 	transform: rotate(-45deg);
 }
 
-span {
-	display: inline-block;
-	color: black;
-	font-weight: bold;
+h4 {
+	margin: 0;
 }
 
 #nav-chapter {
@@ -216,9 +222,9 @@ span {
 
 #nav-link > .tooltip::after {
 	position: absolute;
-	margin-top: -0.4rem;
 	top: 50%;
 	right: 100%;
+	margin-top: -0.4rem;
 	border: 0.4rem solid transparent;
 	border-right-color: dimgrey;
 	content: '';
@@ -233,7 +239,7 @@ span {
 	top: 13rem;
 	left: -10rem;
 	height: auto;
-	width: 2.3rem;
+	width: 2.5rem;
 	border-radius: 0.2rem;
 	background-color: white;
 	cursor: auto;
@@ -249,13 +255,14 @@ span {
 	transition: left 0.5s;
 }
 
-#nav-courses > span {
+#nav-courses > h4 {
 	margin-bottom: 0.2rem;
 	text-align: center;
 }
 
 #nav-courses > * {
-	width: 2.3rem;
+	margin: 0.1rem 0;
+	width: 2.5rem;
 }
 
 #nav-list {
@@ -263,26 +270,53 @@ span {
 	z-index: 1;
 	overflow: auto;
 	top: 0;
-	left: -23rem;
+	left: -24rem;
 	height: 100%;
-	width: 22rem;
+	width: 19rem;
+	padding-left: 4rem;
 	background-color: white;
 	box-shadow: 0 0 1rem;
 	transition: left 0.3s;
 }
 
-#nav-list > span {
-	margin: 0 0.4em 0 3.2em;
-	width: 2em;
-	text-align: right;
+#nav-list > h1 {
+	width: 17rem;
+	margin: 0;
+	padding: 1.2rem 0;
+	font-size: 250%;
+	text-align: center;
+}
+
+#nav-list > div {
+	position: relative;
+	width: 17.7rem;
+	margin: 0.1rem 0 0 0.2rem;
+	overflow: hidden;
+}
+
+#nav-list > div::after {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 6px;
+	height: 100%;
+	background: linear-gradient(to right, rgba(255,255,255,0), white);
+	content: '';
+}
+
+#nav-list h4 {
+	position: relative;
+	display: inline;
+	left: 0;
+	white-space: nowrap;
+	transition: left 0.5s ease-in-out;
 }
 
 .section {
-	height: 2.15rem;
-	width: 1.67rem;
-	border: 0.15rem solid white;
-	border-top-width: 0.3rem;
-	border-bottom-width: 0.3rem;
+	line-height: 1.55rem;
+	height: 2rem;
+	width: 2rem;
+	border: 0.2rem solid white;
 	background-clip: padding-box;
 	background-color: black;
 	color: white;
@@ -293,7 +327,7 @@ span {
 }
 
 ::-webkit-scrollbar {
-	width: 0.8rem;
+	width: 1rem;
 	-webkit-appearance: none;
 }
 
