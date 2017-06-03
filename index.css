@@ -172,6 +172,7 @@ h4 {
 }
 
 #nav-link > svg {
+	display: initial !important;
 	fill: none;
 	stroke: black;
 	stroke-width: 12;
@@ -272,8 +273,8 @@ h4 {
 	top: 0;
 	left: -24rem;
 	height: 100%;
-	width: 19rem;
-	padding-left: 4rem;
+	width: 19.3rem;
+	padding-left: 3.7rem;
 	background-color: white;
 	box-shadow: 0 0 1rem;
 	transition: left 0.3s;
@@ -289,7 +290,7 @@ h4 {
 
 #nav-list > div {
 	position: relative;
-	width: 17.7rem;
+	width: 18rem;
 	margin: 0.1rem 0 0 0.2rem;
 	overflow: hidden;
 }
