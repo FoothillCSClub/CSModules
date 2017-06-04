@@ -114,29 +114,6 @@ var position = location.hash && location.hash.slice(1).toLowerCase().split('.') 
 		else
 			navMenu.onchange();
 	});
-
-	if (/Android|iP(hone|od)/.test(navigator.userAgent)) {
-		// Move navigation to bottom of screen on smartphones in portrait view
-		function togglePortrait() {
-			var nav = document.getElementsByClassName('nav');
-			for (var i = 0; i < nav.length; i++)
-				nav[i].classList.toggle('portrait');
-		}
-
-		if (screen.height > screen.width) {
-			document.documentElement.style.fontSize = '200%';
-			togglePortrait();
-		} else
-			document.documentElement.style.fontSize = '125%';
-
-		window.addEventListener('orientationchange', function() {
-			togglePortrait();
-			if (screen.height > screen.width)
-				document.documentElement.style.fontSize = '200%';
-			else
-				document.documentElement.style.fontSize = '125%';
-		});
-	}
 })();
 
 // Change module when user pastes module link into address bar post-load

@@ -58,11 +58,6 @@ button.nav:active::before {
 	top: 1rem;
 }
 
-#nav-menu.portrait + label {
-	top: auto;
-	bottom: 1rem;
-}
-
 #nav-menu + label::before,
 #nav-menu + label::after {
 	position: absolute;
@@ -109,11 +104,6 @@ button.nav:active::before {
 	top: 4rem;
 }
 
-.nav.jump.prev.portrait {
-	top: auto;
-	bottom: 7rem;
-}
-
 .nav.jump.prev::before {
 	left: 0.5rem;
 	transform: rotate(135deg);
@@ -121,11 +111,6 @@ button.nav:active::before {
 
 .nav.jump.next {
 	top: 7rem;
-}
-
-.nav.jump.next.portrait {
-	top: auto;
-	bottom: 4rem;
 }
 
 .nav.jump.next::before {
@@ -147,11 +132,6 @@ h4 {
 	pointer-events: none;
 }
 
-#nav-chapter.portrait {
-	top: auto;
-	bottom: 10rem;
-}
-
 #nav-menu:checked ~ #nav-chapter {
 	left: -10rem;
 }
@@ -160,11 +140,6 @@ h4 {
 	top: 10rem;
 	left: -10rem;
 	transition: left 0.3s;
-}
-
-#nav-link.portrait {
-	top: auto;
-	bottom: 10rem;
 }
 
 #nav-menu:checked ~ #nav-link {
@@ -247,11 +222,6 @@ h4 {
 	transition: left 0.3s;
 }
 
-#nav-courses.portrait {
-	top: auto;
-	bottom: 12.7rem;
-}
-
 #nav-menu:checked ~ #nav-courses {
 	transition: left 0.5s;
 }
@@ -273,8 +243,10 @@ h4 {
 	top: 0;
 	left: -24rem;
 	height: 100%;
-	width: 19.3rem;
+	width: 23rem;
+	max-width: 100%;
 	padding-left: 3.7rem;
+	box-sizing: border-box;
 	background-color: white;
 	box-shadow: 0 0 1rem;
 	transition: left 0.3s;
@@ -282,6 +254,7 @@ h4 {
 
 #nav-list > h1 {
 	width: 17rem;
+	max-width: 100%;
 	margin: 0;
 	padding: 1.2rem 0;
 	font-size: 250%;
@@ -327,6 +300,19 @@ h4 {
 	cursor: pointer;
 }
 
+.section:hover,
+button.selected {
+	background-color: #F60;
+}
+
+.section:active {
+	background-color: #D40;
+}
+
+span.selected {
+	color: #F60;
+}
+
 ::-webkit-scrollbar {
 	width: 1rem;
 	-webkit-appearance: none;
@@ -344,15 +330,35 @@ h4 {
 	background-color: dimgray;
 }
 
-.section:hover,
-button.selected {
-	background-color: #F60;
-}
+@media only screen
+and (max-width: 480px) {
+	#nav-menu + label {
+		top: auto;
+		bottom: 1rem;
+	}
 
-.section:active {
-	background-color: #D40;
-}
+	.nav.jump.prev {
+		top: auto;
+		bottom: 7rem;
+	}
 
-span.selected {
-	color: #F60;
+	.nav.jump.next {
+		top: auto;
+		bottom: 4rem;
+	}
+
+	#nav-chapter {
+		top: auto;
+		bottom: 10rem;
+	}
+
+	#nav-link {
+		top: auto;
+		bottom: 10rem;
+	}
+
+	#nav-courses {
+		top: auto;
+		bottom: 12.7rem;
+	}
 }
