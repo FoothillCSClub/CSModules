@@ -236,5 +236,5 @@ function setFrame(course, chapter, section) {
 
 	position = [course, chapter, section];
 	localStorage.position = position.join('.');
-	console.log(position.join('.').toUpperCase(), url);
+	console.info(position.join('.').toUpperCase(), url);
 }
