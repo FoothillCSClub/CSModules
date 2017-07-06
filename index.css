@@ -236,6 +236,36 @@ h4 {
 	width: 2.5rem;
 }
 
+#nav-info {
+	top: 29rem;
+	left: -10rem;
+	height: 1.7rem;
+	width: 1.7rem;
+	border: 0.2rem solid black;
+	border-radius: 50%;
+	background-color: white;
+	font-family: serif;
+	font-size: 140%;
+	font-style: italic;
+	font-weight: bold;
+	line-height: 1.3rem;
+	transition: left 0.3s;
+}
+
+#nav-menu:checked ~ #nav-info {
+	transition: left 0.5s;
+}
+
+#nav-info:hover {
+	border-color: #F60;
+	color: #F60;
+}
+
+#nav-info:active {
+	border-color: #D40;
+	color: #D40;
+}
+
 #nav-list {
 	position: fixed;
 	z-index: 1;
@@ -330,6 +360,35 @@ span.selected {
 	background-color: dimgray;
 }
 
+#info {
+	position: fixed;
+	z-index: 3;
+	height: 100%;
+	width: 100%;
+	background-color: rgba(0,0,0,0.4);
+}
+
+#info-box {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	padding: 1rem;
+	background-color: white;
+	box-shadow: 0 0 1rem;
+	text-align: center;
+	transform: translate(-50%,-50%);
+}
+
+a {
+	color: #F60;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+a:visited {
+	color: #D40;
+}
+
 @media only screen
 and (max-width: 480px) {
 	#nav-menu + label {
@@ -360,5 +419,10 @@ and (max-width: 480px) {
 	#nav-courses {
 		top: auto;
 		bottom: 12.7rem;
+	}
+
+	#nav-info {
+		top: auto;
+		bottom: 28.7rem;
 	}
 }

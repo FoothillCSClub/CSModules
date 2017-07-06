@@ -4,6 +4,7 @@ var position = location.hash && location.hash.slice(1).toLowerCase().split('.') 
 	var navMenu = document.getElementById('nav-menu');
 	var navLink = document.getElementById('nav-link');
 	var navCourses = document.getElementById('nav-courses');
+	var navInfo = document.getElementById('nav-info');
 	var navList = document.getElementById('nav-list');
 	var touchStartX;
 	var touchTime;
@@ -32,7 +33,7 @@ var position = location.hash && location.hash.slice(1).toLowerCase().split('.') 
 			var chapter = modules[course][c].c;
 			var chapterTitle = document.createElement('h4');
 			chapterTitle.id = course + chapter;
-			chapterTitle.innerHTML = '<span>' + chapter.toUpperCase() + '</span>' + ' - ' + modules[course][c].t;
+			chapterTitle.innerHTML = '<span>' + chapter.toUpperCase() + '</span> - ' + modules[course][c].t;
 			chapterTitleContainer.appendChild(chapterTitle);
 			// Generate section buttons
 			for (var s = 1, sLen = modules[course][c].s; s <= sLen; s++) {
@@ -72,10 +73,12 @@ var position = location.hash && location.hash.slice(1).toLowerCase().split('.') 
 		if (this.checked) {
 			navLink.style.left = '1rem';
 			navCourses.style.left = '0.6rem';
+			navInfo.style.left = '1rem';
 			navList.style.left = 0;
 		} else {
 			navLink.style.left = '-10rem';
 			navCourses.style.left = '-10rem';
+			navInfo.style.left = '-10rem';
 			navList.style.left = '-24rem';
 		}
 	};
@@ -104,6 +107,7 @@ var position = location.hash && location.hash.slice(1).toLowerCase().split('.') 
 		if (dx < 0) {
 			navLink.style.left = 'calc(' + (dx * 0.3) + 'px + 1rem)';
 			navCourses.style.left = 'calc(' + (dx * 0.5) + 'px + 0.7rem)';
+			navInfo.style.left = 'calc(' + (dx * 0.5) + 'px + 1rem)';
 			navList.style.left = dx + 'px';
 		}
 	});
@@ -237,4 +241,10 @@ function setFrame(course, chapter, section) {
 	position = [course, chapter, section];
 	localStorage.position = position.join('.');
 	console.info(position.join('.').toUpperCase(), url);
+}
+
+function toggleInfo(e) {
+	if (e.target !== e.currentTarget) return;
+	var info = document.getElementById('info');
+	info.style.display = info.style.display === 'none' ? 'block' : 'none';
 }
