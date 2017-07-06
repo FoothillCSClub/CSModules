@@ -1,0 +1,13 @@
+{
+	"name": "Foothill CS Modules",
+	"short_name": "CS Modules",
+	"icons": [
+		{
+			"src": "images/icon-192x192.png",
+			"type": "image/png",
+			"sizes": "192x192"
+		}
+	],
+	"display": "standalone",
+	"scope": "/"
+}
