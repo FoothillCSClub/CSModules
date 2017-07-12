@@ -3,7 +3,7 @@
 	"short_name": "CS Modules",
 	"icons": [
 		{
-			"src": "images/icon-192x192.png",
+			"src": "images/icon-192.png",
 			"type": "image/png",
 			"sizes": "192x192"
 		}

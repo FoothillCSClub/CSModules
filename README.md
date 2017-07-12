@@ -12,8 +12,8 @@ Click stuff.
 
 ###### Keyboard
 
-__Arrow keys__ — change module
+__Arrow keys__ &mdash; change module
 
 ###### Touchscreen
 
-__Swipe left__ — hide module list
+__Swipe left__ &mdash; hide module list
