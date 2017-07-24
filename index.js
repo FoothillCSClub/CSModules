@@ -47,19 +47,17 @@ var position = location.hash && location.hash.slice(1).toLowerCase().split('.') 
 		}
 	}
 
-	// Wait for above generated elements to reflow
-	// Workaround to support offline use - load event does not work on local web page
-	setTimeout(function() {
-		setCourse(position[0]);
-		setFrame(position[0], position[1], parseInt(position[2]));
-	}, 1);
+	// Force reflow
+	void navList.offsetWidth;
+	setCourse(position[0]);
+	setFrame(position[0], position[1], parseInt(position[2]));
 
 	if (document.location.host)
 		// Remove duplicate history entry created by location hash
 		history.replaceState(undefined, undefined, '.');
 
 	// Copy module link to clipboard
-	var clipboard = new Clipboard('#nav-link', {
+	new Clipboard('#nav-link', {
 		text: function() {
 			navLink.classList.add('copied');
 			setTimeout(function() {
