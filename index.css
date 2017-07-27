@@ -392,6 +392,11 @@ a:visited {
 	color: #D40;
 }
 
+#link {
+	position: fixed;
+	top: 100%;
+}
+
 @media only screen
 and (max-width: 480px) {
 	#nav-menu + label {

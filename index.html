@@ -17,7 +17,6 @@
 	<meta name='twitter:image' content='https://foothillcsclub.github.io/CSModules/images/icon-192.png'>
 	<link rel='stylesheet' type='text/css' href='index.css'>
 	<link rel='manifest' href='manifest.json'>
-	<script src='https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js' defer></script>
 	<script src='modules.js' defer></script>
 	<script src='index.js' defer></script>
 </head>
@@ -30,7 +29,7 @@
 	<label for='nav-menu' class='nav'></label>
 	<button type='button' class='nav jump prev' onclick='jumpPrev()'></button>
 	<button type='button' class='nav jump next' onclick='jumpNext()'></button>
-	<div id='nav-link' class='nav'>
+	<div id='nav-link' class='nav' onclick='copyLink()'>
 		<svg viewBox='0 0 100 100' style='display: none'>
 			<path d='M28,58 h-3 a15,15 0 0 1 0,-30 h23 a15,15 0 0 1 0,30 M72,42 h3 a15,15 0 0 1 0,30 h-23 a15,15 0 0 1 0,-30'/>
 		</svg>
@@ -51,5 +50,6 @@
 			 instructors alter their course material.
 		</div>
 	</div>
+	<textarea id='link'></textarea>
 </body>
 </html>

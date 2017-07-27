@@ -56,17 +56,6 @@ var position = location.hash && location.hash.slice(1).toLowerCase().split('.') 
 		// Remove duplicate history entry created by location hash
 		history.replaceState(undefined, undefined, '.');
 
-	// Copy module link to clipboard
-	new Clipboard('#nav-link', {
-		text: function() {
-			navLink.classList.add('copied');
-			setTimeout(function() {
-				navLink.classList.remove('copied');
-			}, 1000);
-			return document.location + '#' + position.join('.');
-		}
-	});
-
 	navMenu.onchange = function() {
 		if (this.checked) {
 			navLink.style.left = '1rem';
@@ -143,7 +132,7 @@ function unscrollTitle(el) {
 
 // Get array index of chapter in course
 function getIndex(course, chapter) {
-	return modules[course].findIndex(obj => obj.c === chapter);
+	return modules[course].findIndex(function (obj) { return obj.c === chapter; });
 }
 
 function jumpPrev() {
@@ -198,6 +187,19 @@ document.addEventListener('keydown', function(e) {
 			jumpChapter(1);
 	}
 });
+
+function copyLink() {
+	var navLink = document.getElementById('nav-link');
+	var link = document.getElementById('link');
+	link.value = document.location + '#' + position.join('.');
+	link.select();
+	document.execCommand('copy');
+	link.blur();
+	navLink.classList.add('copied');
+	setTimeout(function () {
+		navLink.classList.remove('copied');
+	}, 1000);
+}
 
 // Scroll module list to selected course
 function setCourse(course) {
