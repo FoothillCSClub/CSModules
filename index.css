@@ -143,6 +143,7 @@ h4 {
 }
 
 #nav-menu:checked ~ #nav-link {
+	left: 1rem;
 	transition: left 0.4s;
 }
 
@@ -223,6 +224,7 @@ h4 {
 }
 
 #nav-menu:checked ~ #nav-courses {
+	left: 0.6rem;
 	transition: left 0.5s;
 }
 
@@ -254,6 +256,7 @@ h4 {
 }
 
 #nav-menu:checked ~ #nav-info {
+	left: 1rem;
 	transition: left 0.5s;
 }
 
@@ -283,6 +286,10 @@ h4 {
 	background-color: white;
 	box-shadow: 0 0 1rem;
 	transition: left 0.3s;
+}
+
+#nav-menu:checked ~ #nav-list {
+	left: 0;
 }
 
 #nav-list > h1 {

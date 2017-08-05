@@ -1,13 +1,11 @@
 var position = location.hash && location.hash.slice(1).toLowerCase().split('.') || localStorage.position && localStorage.position.split('.') || ['1a', '1a', 1];
 
-(function() {
+document.onreadystatechange = function () {
 	var navMenu = document.getElementById('nav-menu');
 	var navLink = document.getElementById('nav-link');
 	var navCourses = document.getElementById('nav-courses');
 	var navInfo = document.getElementById('nav-info');
 	var navList = document.getElementById('nav-list');
-	var touchStartX;
-	var touchTime;
 
 	for (var course in modules) {
 		// Generate course button
@@ -56,38 +54,24 @@ var position = location.hash && location.hash.slice(1).toLowerCase().split('.') 
 		// Remove duplicate history entry created by location hash
 		history.replaceState(undefined, undefined, '.');
 
-	navMenu.onchange = function() {
-		if (this.checked) {
-			navLink.style.left = '1rem';
-			navCourses.style.left = '0.6rem';
-			navInfo.style.left = '1rem';
-			navList.style.left = 0;
-		} else {
-			navLink.style.left = '-10rem';
-			navCourses.style.left = '-10rem';
-			navInfo.style.left = '-10rem';
-			navList.style.left = '-24rem';
-		}
-	};
-
 	// Detect section button click
-	navList.addEventListener('click', function(e) {
+	navList.onclick = function (e) {
 		if (e.target.className === 'section') {
 			var p = e.target.id.split('-');
 			setFrame(p[0], p[1], p[2]);
 			e.stopPropagation();
 		}
-	});
+	};
 
 	// Detect swipe gesture on touchscreens
-	navList.addEventListener('touchstart', function(e) {
-		touchStartX = e.changedTouches[0].clientX;
-		touchTime = Date.now();
+	navList.addEventListener('touchstart', function (e) {
+		window.touchStartX = e.changedTouches[0].clientX;
+		window.touchTime = Date.now();
 	});
 
 	// List follows finger
-	navList.addEventListener('touchmove', function(e) {
-		// Throttle execution
+	navList.addEventListener('touchmove', function (e) {
+		// Throttle animation
 		if (Date.now() - touchTime < 25) return;
 		touchTime = Date.now();
 		var dx = e.changedTouches[0].clientX - touchStartX;
@@ -99,25 +83,27 @@ var position = location.hash && location.hash.slice(1).toLowerCase().split('.') 
 		}
 	});
 
-	navList.addEventListener('touchend', function(e) {
+	navList.addEventListener('touchend', function (e) {
+		navLink.removeAttribute('style');
+		navCourses.removeAttribute('style');
+		navInfo.removeAttribute('style');
+		navList.removeAttribute('style');
 		if (e.changedTouches[0].clientX - touchStartX < -100)
 			hideList();
-		else
-			navMenu.onchange();
+		window.touchStartX = null;
+		window.touchTime = null;
 	});
-})();
+};
 
 // Change module when user pastes module link into address bar post-load
-window.onhashchange = function() {
+window.onhashchange = function () {
 	var p = location.hash.slice(1).toLowerCase().split('.');
 	setFrame(p[0], p[1], p[2]);
 	history.replaceState(undefined, undefined, '.');
 };
 
 function hideList() {
-	var navMenu = document.getElementById('nav-menu');
-	navMenu.checked = false;
-	navMenu.onchange();
+	document.getElementById('nav-menu').checked = false;
 }
 
 // Scroll long chapter title text into view
@@ -172,21 +158,21 @@ function jumpChapter(n) {
 	setFrame(p[0], p[1], p[2]);
 }
 
-document.addEventListener('keydown', function(e) {
-	switch (e.keyCode) {
-		case 37: // Left arrow
-			jumpPrev();
-			break;
-		case 38: // Up arrow
+document.onkeydown = function (e) {
+	switch (e.key) {
+		case 'ArrowUp':
 			jumpChapter(-1);
 			break;
-		case 39: // Right arrow
-			jumpNext();
-			break;
-		case 40: // Down arrow
+		case 'ArrowDown':
 			jumpChapter(1);
+			break;
+		case 'ArrowLeft':
+			jumpPrev();
+			break;
+		case 'ArrowRight':
+			jumpNext();
 	}
-});
+};
 
 function copyLink() {
 	var navLink = document.getElementById('nav-link');
@@ -213,7 +199,7 @@ function setCourse(course) {
 	}
 
 	// Smooth scroll
-	var sI = setInterval(function() {
+	var sI = setInterval(function () {
 		navList.scrollTop = scrollPosition + distance * smoothStep(counter++ / 30);
 		if (counter > 30)
 			clearInterval(sI);
