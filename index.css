@@ -239,7 +239,7 @@ h4 {
 }
 
 #nav-info {
-	top: 29rem;
+	top: 33rem;
 	left: -10rem;
 	height: 1.5rem;
 	width: 1.5rem;
@@ -438,6 +438,6 @@ and (max-width: 480px) {
 
 	#nav-info {
 		top: auto;
-		bottom: 28.7rem;
+		bottom: 32.7rem;
 	}
 }
