@@ -1,4 +1,4 @@
-var modules = {
+const modules = {
 	'1a':[
 		{ c:'1a',  s:5, t:'The Programming Experience' },
 		{ c:'1b',  s:7, t:'Compiling and Running' },
@@ -145,53 +145,53 @@ var modules = {
 		{ c:'11b', s:2, t:'A Maximum Flow Algorithm and Farewell' }
 	],
 	'3a':[
-		{ c:'1a', s:5, t:'' },
-		{ c:'1b', s:2, t:'' },
-		{ c:'2a', s:7, t:'' },
-		{ c:'2b', s:7, t:'' },
-		{ c:'3a', s:5, t:'' },
-		{ c:'3b', s:4, t:'' },
-		{ c:'4a', s:5, t:'' },
-		{ c:'4b', s:4, t:'' },
-		{ c:'5a', s:6, t:'' },
-		{ c:'5b', s:6, t:'' },
-		{ c:'6a', s:5, t:'' },
-		{ c:'6b', s:6, t:'' },
-		{ c:'7a', s:8, t:'' },
-		{ c:'7b', s:5, t:'' },
-		{ c:'8a', s:6, t:'' },
-		{ c:'8b', s:5, t:'' },
-		{ c:'9a', s:3, t:'' },
-		{ c:'9b', s:3, t:'' },
-		{ c:'10a', s:3, t:'' },
-		{ c:'10b', s:3, t:'' }
+		{ c:'1a',  s:5, t:'The Programming Experience' },
+		{ c:'1b',  s:2, t:'Compiling and Running' },
+		{ c:'2a',  s:7, t:'Simple Python Programs' },
+		{ c:'2b',  s:7, t:'Data Types' },
+		{ c:'3a',  s:5, t:'User Input and Selection' },
+		{ c:'3b',  s:4, t:'Logic' },
+		{ c:'4a',  s:5, t:'Repetition' },
+		{ c:'4b',  s:4, t:'Formatting' },
+		{ c:'5a',  s:6, t:'Methods and Functions' },
+		{ c:'5b',  s:6, t:'Parameters Passing and Global Variables' },
+		{ c:'6a',  s:5, t:'Object-Oriented Programming (OOP)' },
+		{ c:'6b',  s:6, t:'Instance Methods' },
+		{ c:'7a',  s:8, t:'Deeper into Classes' },
+		{ c:'7b',  s:5, t:'Interaction of Objects and Methods' },
+		{ c:'8a',  s:6, t:'Arrays and a Sort Algorithm' },
+		{ c:'8b',  s:5, t:'Compound Data Types: Arrays in Classes' },
+		{ c:'9a',  s:3, t:'Search Algorithms and Stack Data Structures' },
+		{ c:'9b',  s:3, t:'Recursion and a Binary Search Algorithm' },
+		{ c:'10a', s:3, t:'Tuples, Dictionaries, and I/O' },
+		{ c:'10b', s:3, t:'Class Objects and Instance Attributes' }
 	],
 	'3b':[
-		{ c:'1a', s:8, t:'' },
-		{ c:'1b', s:7, t:'' },
-		{ c:'2a', s:5, t:'' },
-		{ c:'2b', s:7, t:'' },
-		{ c:'3a', s:1, t:'' },
-		{ c:'3b', s:4, t:'' },
-		{ c:'4a', s:5, t:'' },
-		{ c:'4b', s:6, t:'' },
-		{ c:'5a', s:8, t:'' },
-		{ c:'5b', s:5, t:'' },
-		{ c:'6a', s:5, t:'' },
-		{ c:'6b', s:5, t:'' },
-		{ c:'7a', s:5, t:'' },
-		{ c:'7b', s:1, t:'' },
-		{ c:'8a', s:5, t:'' },
-		{ c:'8b', s:4, t:'' },
-		{ c:'9a', s:5, t:'' },
-		{ c:'9b', s:5, t:'' },
-		{ c:'10a', s:5, t:'' },
-		{ c:'10b', s:7, t:'' },
-		{ c:'11a', s:4, t:'' }
+		{ c:'1a',  s:8, t:'Classes, Strings, and Named Parameters' },
+		{ c:'1b',  s:7, t:'Review and Analysis of an OOP Project' },
+		{ c:'2a',  s:5, t:'Arrays, Stacks, Queues, and Exceptions' },
+		{ c:'2b',  s:7, t:'Sorting, Recursion, and Binary Search' },
+		{ c:'3a',  s:6, t:'Cellular Automata, Life, and Binary Ops' },
+		{ c:'3b',  s:4, t:'Multi-Dimensional Arrays and Stacks' },
+		{ c:'4a',  s:5, t:'Introduction to Inheritance' },
+		{ c:'4b',  s:6, t:'Implementing Inheritance' },
+		{ c:'5a',  s:8, t:'Python GUIs' },
+		{ c:'5b',  s:5, t:'Child Windows and GUI States' },
+		{ c:'6a',  s:5, t:'Abstract Classes and Operator Overloading' },
+		{ c:'6b',  s:5, t:'Error Handling' },
+		{ c:'7a',  s:5, t:'Lambda Expressions and JSON Serialization' },
+		{ c:'7b',  s:5, t:'Deep Copies' },
+		{ c:'8a',  s:5, t:'Canvas Drawing and Containers' },
+		{ c:'8b',  s:4, t:'Linked Lists' },
+		{ c:'9a',  s:5, t:'General Trees' },
+		{ c:'9b',  s:5, t:'Tree Manipulation' },
+		{ c:'10a', s:5, t:'Variable Arguments and Method Resolution Order' },
+		{ c:'10b', s:7, t:'Multiple Inheritance' },
+		{ c:'11a', s:4, t:'C3 MRO Algorithm' }
 	],
 };
 
-var urls = {
+const urls = {
 	base:'https://fgamedia.org/faculty/loceff/cs_courses/',
 	'1a':{
 		'5c':{
@@ -259,5 +259,16 @@ var urls = {
 	},
 	'2c':{},
 	'3a':{},
-	'3b':{}
+	'3b':{
+		'3a':{
+			2:'common/LIFE/cs_1and2B_3a_2',
+			4:'common/LIFE/cs_1and2B_3a_4',
+			5:'common/LIFE/cs_1and2B_3a_5'
+		},
+		'7b':{
+			2:'common/LIFE/cs_1and2B_bool_func_1',
+			3:'common/LIFE/cs_1and2B_bool_func_2',
+			4:'common/LIFE/cs_1and2B_bool_func_3'
+		}
+	},
 };

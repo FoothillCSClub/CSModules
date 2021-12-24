@@ -441,3 +441,14 @@ and (max-width: 480px) {
 		bottom: 32.7rem;
 	}
 }
+
+@media print {
+	body > :not(#content) {
+		display: none;
+	}
+
+	#content {
+		position: static;
+		height: 999vh;
+	}
+}

@@ -1,15 +1,15 @@
 var position = location.hash && location.hash.slice(1).toLowerCase().split('.') || localStorage.position && localStorage.position.split('.') || ['1a', '1a', 1];
 
 document.onreadystatechange = function () {
-	var navMenu = document.getElementById('nav-menu');
-	var navLink = document.getElementById('nav-link');
-	var navCourses = document.getElementById('nav-courses');
-	var navInfo = document.getElementById('nav-info');
-	var navList = document.getElementById('nav-list');
+	const navMenu = document.getElementById('nav-menu');
+	const navLink = document.getElementById('nav-link');
+	const navCourses = document.getElementById('nav-courses');
+	const navInfo = document.getElementById('nav-info');
+	const navList = document.getElementById('nav-list');
 
-	for (var course in modules) {
+	for (let course in modules) {
 		// Generate course button
-		var courseBtn = document.createElement('button');
+		const courseBtn = document.createElement('button');
 		courseBtn.type = 'button';
 		courseBtn.className = 'section';
 		courseBtn.id = course;
@@ -18,24 +18,24 @@ document.onreadystatechange = function () {
 		navCourses.appendChild(courseBtn);
 		navCourses.appendChild(document.createElement('br'));
 		// Generate course title
-		var courseTitle = document.createElement('h1');
+		const courseTitle = document.createElement('h1');
 		courseTitle.id = course + '-title';
 		courseTitle.innerHTML = course.toUpperCase();
 		navList.appendChild(courseTitle);
-		for (var c = 0, cLen = modules[course].length; c < cLen; c++) {
+		for (let c = 0, cLen = modules[course].length; c < cLen; c++) {
 			// Generate chapter title
-			var chapterTitleContainer = document.createElement('div');
+			const chapterTitleContainer = document.createElement('div');
 			chapterTitleContainer.setAttribute('onmouseenter', 'scrollTitle(this)');
 			chapterTitleContainer.setAttribute('onmouseleave', 'unscrollTitle(this)');
 			navList.appendChild(chapterTitleContainer);
-			var chapter = modules[course][c].c;
-			var chapterTitle = document.createElement('h4');
+			const chapter = modules[course][c].c;
+			const chapterTitle = document.createElement('h4');
 			chapterTitle.id = course + chapter;
 			chapterTitle.innerHTML = '<span>' + chapter.toUpperCase() + '</span> - ' + modules[course][c].t;
 			chapterTitleContainer.appendChild(chapterTitle);
 			// Generate section buttons
-			for (var s = 1, sLen = modules[course][c].s; s <= sLen; s++) {
-				var sectionBtn = document.createElement('button');
+			for (let s = 1, sLen = modules[course][c].s; s <= sLen; s++) {
+				const sectionBtn = document.createElement('button');
 				sectionBtn.type = 'button';
 				sectionBtn.className = 'section';
 				sectionBtn.id = course + '-' + chapter + '-' + s;
@@ -57,7 +57,7 @@ document.onreadystatechange = function () {
 	// Detect section button click
 	navList.onclick = function (e) {
 		if (e.target.className === 'section') {
-			var p = e.target.id.split('-');
+			const p = e.target.id.split('-');
 			setFrame(p[0], p[1], p[2]);
 			e.stopPropagation();
 		}
@@ -74,7 +74,7 @@ document.onreadystatechange = function () {
 		// Throttle animation
 		if (Date.now() - touchTime < 25) return;
 		touchTime = Date.now();
-		var dx = e.changedTouches[0].clientX - touchStartX;
+		const dx = e.changedTouches[0].clientX - touchStartX;
 		if (dx < 0) {
 			navLink.style.left = 'calc(' + (dx * 0.3) + 'px + 1rem)';
 			navCourses.style.left = 'calc(' + (dx * 0.5) + 'px + 0.7rem)';
@@ -97,7 +97,7 @@ document.onreadystatechange = function () {
 
 // Change module when user pastes module link into address bar post-load
 window.onhashchange = function () {
-	var p = location.hash.slice(1).toLowerCase().split('.');
+	const p = location.hash.slice(1).toLowerCase().split('.');
 	setFrame(p[0], p[1], p[2]);
 	history.replaceState(undefined, undefined, '.');
 };
@@ -122,11 +122,11 @@ function getIndex(course, chapter) {
 }
 
 function jumpPrev() {
-	var p = position.slice();
+	const p = position.slice();
 	if (p[2] > 1)
 		p[2]--;
 	else if (p[1] !== modules[p[0]][0].c) {
-		var idx = getIndex(p[0], p[1]);
+		let idx = getIndex(p[0], p[1]);
 		p[1] = modules[p[0]][--idx].c;
 		p[2] = modules[p[0]][idx].s;
 	} else return;
@@ -134,8 +134,8 @@ function jumpPrev() {
 }
 
 function jumpNext() {
-	var p = position.slice();
-	var idx = getIndex(p[0], p[1]);
+	const p = position.slice();
+	let idx = getIndex(p[0], p[1]);
 	if (p[2] < modules[p[0]][idx].s)
 		p[2]++;
 	else if (idx < modules[p[0]].length - 1) {
@@ -146,8 +146,8 @@ function jumpNext() {
 }
 
 function jumpChapter(n) {
-	var p = position.slice();
-	var idx = getIndex(p[0], p[1]);
+	const p = position.slice();
+	let idx = getIndex(p[0], p[1]);
 	if (n < 0 && idx > 0)
 		p[1] = modules[p[0]][--idx].c;
 	else if (n > 0 && idx < modules[p[0]].length - 1)
@@ -175,8 +175,8 @@ document.onkeydown = function (e) {
 };
 
 function copyLink() {
-	var navLink = document.getElementById('nav-link');
-	var link = document.getElementById('link');
+	const navLink = document.getElementById('nav-link');
+	const link = document.getElementById('link');
 	link.value = document.location + '#' + position.join('.');
 	link.select();
 	document.execCommand('copy');
@@ -189,17 +189,17 @@ function copyLink() {
 
 // Scroll module list to selected course
 function setCourse(course) {
-	var navList = document.getElementById('nav-list');
-	var scrollPosition = navList.scrollTop;
-	var distance = document.getElementById(course + '-title').offsetTop - scrollPosition;
-	var counter = 0;
+	const navList = document.getElementById('nav-list');
+	const scrollPosition = navList.scrollTop;
+	const distance = document.getElementById(course + '-title').offsetTop - scrollPosition;
+	let counter = 0;
 
 	function smoothStep(n) {
 		return n * n * (3 - 2 * n);
 	}
 
 	// Smooth scroll
-	var sI = setInterval(function () {
+	const sI = setInterval(function () {
 		navList.scrollTop = scrollPosition + distance * smoothStep(counter++ / 30);
 		if (counter > 30)
 			clearInterval(sI);
@@ -211,7 +211,7 @@ function setCourse(course) {
 
 // Load selected module in iframe
 function setFrame(course, chapter, section) {
-	var url = urls.base + (urls[course][chapter] && urls[course][chapter][section] || 'cs_' + course + '/cs_' + course.toUpperCase() + '_' + chapter + '_' + section) + '.html';
+	const url = urls.base + (urls[course][chapter] && urls[course][chapter][section] || 'cs_' + course + '/cs_' + course.toUpperCase() + '_' + chapter + '_' + section) + '.html';
 	document.getElementById('frame').src = url;
 
 	// Highlight corresponding module list buttons
@@ -231,6 +231,6 @@ function setFrame(course, chapter, section) {
 
 function toggleInfo(e) {
 	if (e.target !== e.currentTarget) return;
-	var info = document.getElementById('info');
+	const info = document.getElementById('info');
 	info.style.display = info.style.display === 'none' ? 'block' : 'none';
 }
