@@ -1,7 +1,6 @@
 var position = location.hash && location.hash.slice(1).toLowerCase().split('.') || localStorage.position && localStorage.position.split('.') || ['1a', '1a', 1];
 
 document.onreadystatechange = function () {
-	const navMenu = document.getElementById('nav-menu');
 	const navLink = document.getElementById('nav-link');
 	const navCourses = document.getElementById('nav-courses');
 	const navInfo = document.getElementById('nav-info');
@@ -98,6 +97,7 @@ document.onreadystatechange = function () {
 // Change module when user pastes module link into address bar post-load
 window.onhashchange = function () {
 	const p = location.hash.slice(1).toLowerCase().split('.');
+	setCourse(p[0]);
 	setFrame(p[0], p[1], p[2]);
 	history.replaceState(undefined, undefined, '.');
 };

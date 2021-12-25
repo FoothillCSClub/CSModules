@@ -1,6 +1,6 @@
 # CSModules
 
-An index for [Michael Loceff](https://www.foothill.edu/cs/directory.html?s=1&rec_id=278)'s computer science teaching modules at [Foothill College](https://www.foothill.edu/), which are commonly used by other CS instructors there.
+An index for Michael Loceff's computer science teaching modules at [Foothill College](https://www.foothill.edu/), which are commonly used by other CS instructors there.
 
 Bookmark/link friendly. Mobile friendly.
 

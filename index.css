@@ -314,7 +314,7 @@ h4 {
 	right: 0;
 	width: 6px;
 	height: 100%;
-	background: linear-gradient(to right, rgba(255,255,255,0), white);
+	background: linear-gradient(to right, #FFF0, white);
 	content: '';
 }
 
@@ -375,7 +375,7 @@ span.selected {
 	z-index: 3;
 	height: 100%;
 	width: 100%;
-	background-color: rgba(0,0,0,0.4);
+	background-color: #0009;
 }
 
 #info-box {
